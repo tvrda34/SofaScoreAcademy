@@ -1,10 +1,9 @@
 package com.example.sofascoreacademy
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 
 class HelloWorldActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -12,17 +11,17 @@ class HelloWorldActivity : AppCompatActivity() {
         setContentView(R.layout.activity_hello_world)
 
         val button: Button = findViewById(R.id.button)
-        button.setOnClickListener { viewsChange(button) }
+        val textView: TextView = findViewById(R.id.textView)
+        button.setOnClickListener { viewsChange(button, textView) }
     }
 
-    private fun viewsChange(button: Button) {
-        val textview: TextView = findViewById(R.id.textView)
-        if (textview.text.isEmpty()) {
-            textview.setText(getString(R.string.textview_show))
-            button.setText(getString(R.string.buttontext_hide))
+    private fun viewsChange(button: Button, textView: TextView) {
+        if (textView.text.isEmpty()) {
+            textView.text = getString(R.string.textview_show)
+            button.text = getString(R.string.buttontext_hide)
         } else {
-            textview.setText(null) // ne znam je li bolja opcija ("") ili je svejedno
-            button.setText(R.string.buttontext_show)
+            textView.text = ""
+            button.text = getString(R.string.buttontext_show)
         }
     }
 }

@@ -3,4 +3,21 @@
     <string name="buttontext_show">Show</string>
     <string name="textview_show">Hello world!</string>
     <string name="buttontext_hide">Hide</string>
+    <string name="buttonRepka">repka</string>
+    <string name="buttonPoziv">poziv</string>
+    <string name="naslov">Pozovi novog igrača</string>
+    <string name="textName">Ime</string>
+    <string name="nameHint">npr. Domagoj</string>
+    <string name="textSurname">Prezime</string>
+    <string name="surnameHint">npr. Bradarić</string>
+    <string name="textAge">Godine</string>
+    <string name="ageHint">npr. 21</string>
+    <string name="textPosition">Pozicija</string>
+    <string name="positionHint">npr. Branič</string>
+    <string name="textClub">Klub</string>
+    <string name="clubHint">npr. Lille O.S.C.</string>
+    <string name="string_addbutton">Pozovi</string>
+    <string name="reprezentativci">Reprezentativci:</string>
+    <string name="kriviUnos">Potrebno je popuniti sva polja!</string>
+    <string name="ispravanUnos">Igrač pozvan</string>
 </resources>
