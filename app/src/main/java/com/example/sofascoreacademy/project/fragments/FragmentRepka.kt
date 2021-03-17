@@ -1,4 +1,4 @@
-package com.example.sofascoreacademy.dz2.fragments
+package com.example.sofascoreacademy.project.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.sofascoreacademy.databinding.FragmentRepkaBinding
-import com.example.sofascoreacademy.dz2.data.SharedViewModel
+import com.example.sofascoreacademy.project.data.SharedViewModel
 
 class FragmentRepka : Fragment() {
     private var _binding: FragmentRepkaBinding? = null

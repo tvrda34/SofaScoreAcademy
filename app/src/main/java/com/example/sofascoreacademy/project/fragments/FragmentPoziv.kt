@@ -1,4 +1,4 @@
-package com.example.sofascoreacademy.dz2.fragments
+package com.example.sofascoreacademy.project.fragments
 
 import android.graphics.Color
 import android.os.Bundle
@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.databinding.FragmentPozivBinding
-import com.example.sofascoreacademy.dz2.data.Footballer
-import com.example.sofascoreacademy.dz2.data.SharedViewModel
+import com.example.sofascoreacademy.project.data.Footballer
+import com.example.sofascoreacademy.project.data.SharedViewModel
 
 class FragmentPoziv : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()

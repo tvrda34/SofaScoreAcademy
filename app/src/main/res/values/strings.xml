@@ -1,8 +1,5 @@
 <resources>
     <string name="app_name">SofaScoreAcademy</string>
-    <string name="buttontext_show">Show</string>
-    <string name="textview_show">Hello world!</string>
-    <string name="buttontext_hide">Hide</string>
     <string name="buttonRepka">repka</string>
     <string name="buttonPoziv">poziv</string>
     <string name="naslov">Pozovi novog igrača</string>
@@ -20,4 +17,7 @@
     <string name="reprezentativci">Reprezentativci:</string>
     <string name="kriviUnos">Potrebno je popuniti sva polja!</string>
     <string name="ispravanUnos">Igrač pozvan</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_poziv">Poziv</string>
+    <string name="title_repka">Repka</string>
 </resources>

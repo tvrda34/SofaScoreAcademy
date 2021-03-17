@@ -1,4 +1,4 @@
-package com.example.sofascoreacademy.dz2.data
+package com.example.sofascoreacademy.project.data
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
