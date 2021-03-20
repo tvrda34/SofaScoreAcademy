@@ -1,171 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        tools:context=".project.fragments.FragmentPoziv">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    android:padding="4dp"
+    tools:context=".project.ui.call.FragmentPoziv">
 
         <TextView
             android:id="@+id/textViewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="8dp"
             android:text="@string/naslov"
+            android:fontFamily="@font/pink_chicken_regular"
             android:textSize="24sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.121"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/textViewName"
+        <com.example.sofascoreacademy.project.ui.views.EditStringText
+            android:id="@+id/nameInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/textName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/surnameInput"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+            app:textViewText="@string/textName"
+            app:textHint="@string/nameHint" />
+
+        <com.example.sofascoreacademy.project.ui.views.EditStringText
+            android:id="@+id/surnameInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textViewAge"
+            app:layout_constraintTop_toBottomOf="@+id/nameInput"
+            app:textViewText="@string/textSurname"
+            app:textHint="@string/surnameHint" />
+
+        <include
+            android:id="@+id/posRadio"
+            layout="@layout/position_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/surnameInput"
             app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/nameInput"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/nameHint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.106"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewName">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/nameInputText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textViewSurname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/textSurname"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.07"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/nameInput" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/surnameInput"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/surnameHint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.106"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewSurname">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/surnameInputText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/textViewAge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="16sp"
             android:layout_marginTop="8dp"
             android:text="@string/textAge"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/surnameInput" />
+            app:layout_constraintBottom_toTopOf="@+id/ageInput" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/ageInput"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:hint="@string/ageHint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.106"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewAge">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/ageInputText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="number" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ageInputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/textViewPosition"
+            android:id="@+id/statusView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:text="@string/statusText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ageInput"
+            app:layout_constraintBottom_toTopOf="@+id/clubInput" />
+
+        <Spinner
+            android:id="@+id/positionSpinner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@string/textPosition"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.07"
-            app:layout_constraintStart_toStartOf="parent"
+            android:background="@drawable/custom_button"
+            app:layout_constraintBottom_toTopOf="@id/clubInput"
+            app:layout_constraintStart_toEndOf="@+id/statusView"
             app:layout_constraintTop_toBottomOf="@+id/ageInput" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/positionInput"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:hint="@string/positionHint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.106"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewPosition">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/positionInputText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:inputType="text" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/textViewClub"
+        <com.example.sofascoreacademy.project.ui.views.EditStringText
+            android:id="@+id/clubInput"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/textClub"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.07"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/positionInput" />
+            app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+            app:layout_constraintTop_toBottomOf="@+id/statusView"
+            app:textViewText="@string/textClub"
+            app:textHint="@string/clubHint" />
+
+        <TextView
+            android:id="@+id/apperanceNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@string/textApper"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/clubInput"
+            app:layout_constraintTop_toBottomOf="@+id/posRadio" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/clubInput"
-            android:layout_width="180dp"
+            android:id="@+id/apperInput"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
+            android:hint="@string/apperHint"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.106"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textViewClub">
+            app:layout_constraintStart_toStartOf="@+id/apperanceNum"
+            app:layout_constraintTop_toBottomOf="@+id/apperanceNum">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/clubInputText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/clubHint"
-                android:inputType="text" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/apperInputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -173,18 +145,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/string_addbutton"
+            android:layout_marginTop="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/clubInput" />
 
         <TextView
             android:id="@+id/invalidEnter"
-            android:layout_width="wrap_content"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text=""
-            app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+            app:layout_constraintTop_toTopOf="@+id/buttonAdd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clubInput" />
+            app:layout_constraintStart_toEndOf="@+id/buttonAdd" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

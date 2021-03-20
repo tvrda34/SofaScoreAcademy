@@ -15,9 +15,18 @@
     <string name="clubHint">npr. Lille O.S.C.</string>
     <string name="string_addbutton">Pozovi</string>
     <string name="reprezentativci">Reprezentativci:</string>
-    <string name="kriviUnos">Potrebno je popuniti sva polja!</string>
+    <string name="kriviUnos">Popuni sve!</string>
     <string name="ispravanUnos">Igrač pozvan</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="title_poziv">Poziv</string>
     <string name="title_repka">Repka</string>
+    <string name="textview">TextView</string>
+    <string name="golman">golman</string>
+    <string name="branic">branič</string>
+    <string name="vezni">vezni</string>
+    <string name="napadac">napadač</string>
+    <string name="radioGroupTitle">Odaberi poziciju:</string>
+    <string name="textApper">Broj nastupa</string>
+    <string name="apperHint">npr. 3</string>
+    <string name="statusText">Status</string>
 </resources>

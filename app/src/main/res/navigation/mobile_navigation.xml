@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_poziv"
-        android:name="com.example.sofascoreacademy.project.fragments.FragmentPoziv"
+        android:name="com.example.sofascoreacademy.project.ui.call.FragmentPoziv"
         android:label="@string/title_poziv"
         tools:layout="@layout/fragment_poziv" />
 
     <fragment
         android:id="@+id/navigation_repka"
-        android:name="com.example.sofascoreacademy.project.fragments.FragmentRepka"
+        android:name="com.example.sofascoreacademy.project.ui.team.FragmentRepka"
         android:label="@string/title_repka"
         tools:layout="@layout/fragment_repka" />
 
