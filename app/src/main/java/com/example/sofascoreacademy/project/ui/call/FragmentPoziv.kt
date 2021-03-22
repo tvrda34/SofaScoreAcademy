@@ -32,12 +32,12 @@ class FragmentPoziv : Fragment() {
 
     private fun addPlayer() {
         if (binding.nameInput.getCurrentText().isEmpty() || binding.surnameInput.getCurrentText().isEmpty()
-                || binding.ageInputText.text.isNullOrEmpty() || binding.positionSpinner.selectedItem == TeamRole.Odabir
+                || binding.ageInputText.text.isNullOrEmpty() || binding.positionSpinner.selectedItem == null
                 || binding.clubInput.getCurrentText().isEmpty() || binding.posRadio.radioGroup.checkedRadioButtonId == -1
         ) {
             binding.invalidEnter.setText(R.string.kriviUnos)
             binding.invalidEnter.setTextColor(Color.RED)
-            binding.invalidEnter.postDelayed({ binding.invalidEnter.setText("") }, 2000)
+            binding.invalidEnter.postDelayed({ binding.invalidEnter.text = "" }, 2000)
             return
         }
 
@@ -46,10 +46,10 @@ class FragmentPoziv : Fragment() {
                 binding.surnameInput.getCurrentText(),
                 binding.ageInputText.text.toString().toInt(),
                 when (binding.posRadio.radioGroup.checkedRadioButtonId) {
-                    R.id.optionGoalkeeper -> "Golman"
-                    R.id.optionDefender -> "Branič"
-                    R.id.optionMidfielder -> "Vezni igrač"
-                    else -> "Napadač"
+                    R.id.optionGoalkeeper -> getString(R.string.golman)
+                    R.id.optionDefender -> getString(R.string.branic)
+                    R.id.optionMidfielder -> getString(R.string.vezni)
+                    else -> getString(R.string.napadac)
                 },
                 binding.clubInput.getCurrentText(),
                 binding.positionSpinner.selectedItem as TeamRole,
@@ -57,14 +57,14 @@ class FragmentPoziv : Fragment() {
         )
         binding.invalidEnter.setText(R.string.ispravanUnos)
         binding.invalidEnter.setTextColor(Color.GREEN)
-        binding.invalidEnter.postDelayed({ binding.invalidEnter.setText("") }, 1000)
+        binding.invalidEnter.postDelayed({ binding.invalidEnter.text = "" }, 1000)
+
 
         sharedViewModel.addToList(footballer)
 
         binding.nameInput.reset()
         binding.surnameInput.reset()
         binding.ageInputText.setText("")
-        binding.positionSpinner.setSelection(0)
         binding.posRadio.radioGroup.clearCheck()
         binding.clubInput.reset()
         binding.apperInputText.setText("")
