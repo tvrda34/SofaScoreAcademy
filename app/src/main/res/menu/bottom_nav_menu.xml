@@ -11,4 +11,8 @@
         android:icon="@drawable/ic_repka_24"
         android:title="@string/title_repka" />
 
+    <item
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_baseline_settings_24"
+        android:title="@string/title_settings" />
 </menu>

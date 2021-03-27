@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="redP">#d32f2f</color>
+    <color name="redPv">#9a0007</color>
+    <color name="redSp">#f5f5f5</color>
+    <color name="redSv">#c2c2c2</color>
+    <color name="redOs">#ffffff</color>
+    <color name="spinC">#bbdefb</color>
 </resources>

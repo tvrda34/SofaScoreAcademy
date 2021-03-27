@@ -17,4 +17,10 @@
         android:label="@string/title_repka"
         tools:layout="@layout/fragment_repka" />
 
+    <fragment
+        android:id="@+id/navigation_settings"
+        android:name="com.example.sofascoreacademy.project.ui.settings.FragmentSettings"
+        android:label="@string/title_settings"
+        tools:layout="@layout/settings" />
+
 </navigation>

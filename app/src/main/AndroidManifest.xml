@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sofascoreacademy">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:fullBackupContent="true"
@@ -11,6 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SofaScoreAcademy">
         <activity
+            android:name=".project.ui.playerdetail.PlayerDetail"
+            android:label="@string/title_activity_player_detail"
+            android:parentActivityName=".project.MainActivity"
+            android:theme="@style/Theme.SofaScoreAcademy.NoActionBar" />
+        <activity
             android:name=".project.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden">
             <intent-filter>
@@ -19,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
     </application>
 
 </manifest>

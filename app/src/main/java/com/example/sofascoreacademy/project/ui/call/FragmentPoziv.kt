@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.example.sofascoreacademy.R
@@ -31,36 +32,37 @@ class FragmentPoziv : Fragment() {
     }
 
     private fun addPlayer() {
-        if (binding.nameInput.getCurrentText().isEmpty() || binding.surnameInput.getCurrentText().isEmpty()
-                || binding.ageInputText.text.isNullOrEmpty() || binding.positionSpinner.selectedItem == null
-                || binding.clubInput.getCurrentText().isEmpty() || binding.posRadio.radioGroup.checkedRadioButtonId == -1
+        if (binding.nameInput.getCurrentText().isEmpty() || binding.surnameInput.getCurrentText()
+                .isEmpty()
+            || binding.ageInputText.text.isNullOrEmpty() || binding.positionSpinner.selectedItem == null
+            || binding.clubInput.getCurrentText()
+                .isEmpty() || binding.posRadio.radioGroup.checkedRadioButtonId == -1
+            || binding.imageInput.getCurrentText().isEmpty()
         ) {
             binding.invalidEnter.setText(R.string.kriviUnos)
             binding.invalidEnter.setTextColor(Color.RED)
-            binding.invalidEnter.postDelayed({ binding.invalidEnter.text = "" }, 2000)
+            binding.invalidEnter.postDelayed({ binding.invalidEnter.text = "" }, 1000)
             return
         }
 
         val footballer = Footballer(
-                binding.nameInput.getCurrentText(),
-                binding.surnameInput.getCurrentText(),
-                binding.ageInputText.text.toString().toInt(),
-                when (binding.posRadio.radioGroup.checkedRadioButtonId) {
-                    R.id.optionGoalkeeper -> getString(R.string.golman)
-                    R.id.optionDefender -> getString(R.string.branic)
-                    R.id.optionMidfielder -> getString(R.string.vezni)
-                    else -> getString(R.string.napadac)
-                },
-                binding.clubInput.getCurrentText(),
-                binding.positionSpinner.selectedItem as TeamRole,
-                binding.apperInputText.text.toString().toInt()
+            binding.nameInput.getCurrentText(),
+            binding.surnameInput.getCurrentText(),
+            binding.ageInputText.text.toString().toInt(),
+            when (binding.posRadio.radioGroup.checkedRadioButtonId) {
+                R.id.optionGoalkeeper -> getString(R.string.golman)
+                R.id.optionDefender -> getString(R.string.branic)
+                R.id.optionMidfielder -> getString(R.string.vezni)
+                else -> getString(R.string.napadac)
+            },
+            binding.clubInput.getCurrentText(),
+            binding.positionSpinner.selectedItem as TeamRole,
+            binding.apperInputText.text.toString().toInt(),
+            binding.imageInput.getCurrentText()
         )
-        binding.invalidEnter.setText(R.string.ispravanUnos)
-        binding.invalidEnter.setTextColor(Color.GREEN)
-        binding.invalidEnter.postDelayed({ binding.invalidEnter.text = "" }, 1000)
-
-
         sharedViewModel.addToList(footballer)
+
+        Toast.makeText(requireContext(), getString(R.string.call_succ), Toast.LENGTH_SHORT).show()
 
         binding.nameInput.reset()
         binding.surnameInput.reset()
@@ -68,6 +70,7 @@ class FragmentPoziv : Fragment() {
         binding.posRadio.radioGroup.clearCheck()
         binding.clubInput.reset()
         binding.apperInputText.setText("")
+        binding.imageInput.reset()
 
     }
 
@@ -77,3 +80,5 @@ class FragmentPoziv : Fragment() {
     }
 
 }
+
+

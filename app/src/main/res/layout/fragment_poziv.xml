@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+            app:layout_constraintBottom_toTopOf="@+id/imageInput"
             app:layout_constraintTop_toBottomOf="@+id/statusView"
             app:textViewText="@string/textClub"
             app:textHint="@string/clubHint" />
@@ -123,40 +123,50 @@
             app:layout_constraintStart_toEndOf="@id/clubInput"
             app:layout_constraintTop_toBottomOf="@+id/posRadio" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/apperInput"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:hint="@string/apperHint"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/apperanceNum"
-            app:layout_constraintTop_toBottomOf="@+id/apperanceNum">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/apperInput"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/apperHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/apperanceNum"
+        app:layout_constraintTop_toBottomOf="@+id/apperanceNum">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/apperInputText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/apperInputText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        <Button
-            android:id="@+id/buttonAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/string_addbutton"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/clubInput" />
+    <com.example.sofascoreacademy.project.ui.views.EditStringText
+        android:id="@+id/imageInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+        app:layout_constraintTop_toBottomOf="@+id/clubInput"
+        app:textViewText="@string/textImage"
+        app:textHint="@string/imageHint" />
 
-        <TextView
-            android:id="@+id/invalidEnter"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:text=""
-            app:layout_constraintTop_toTopOf="@+id/buttonAdd"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/buttonAdd" />
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_addbutton"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageInput" />
+
+    <TextView
+        android:id="@+id/invalidEnter"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintTop_toTopOf="@+id/buttonAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonAdd" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

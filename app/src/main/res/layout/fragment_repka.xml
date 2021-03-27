@@ -10,7 +10,6 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_marginStart="10dp"
         android:text="@string/reprezentativci"
         android:textStyle="bold"
@@ -18,15 +17,15 @@
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/listView" />
+        app:layout_constraintBottom_toTopOf="@+id/recView" />
 
 
-    <ListView
-        android:id="@+id/listView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custom_button"
-        android:alpha="0.8"
+        android:layout_height="500dp"
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
