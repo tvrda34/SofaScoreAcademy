@@ -43,5 +43,6 @@ class MainActivity : AppCompatActivity() {
         val tbar = findViewById<BottomNavigationView>(R.id.nav_view)
         tbar.menu.clear()
         tbar.inflateMenu(R.menu.bottom_nav_menu)
+        tbar.selectedItemId = R.id.navigation_settings
     }
 }
