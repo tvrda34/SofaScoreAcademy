@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    android:padding="4dp"
+    tools:context=".project.ui.call.FragmentPoziv">
+
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/naslov"
+            android:fontFamily="@font/pink_chicken_regular"
+            android:textSize="24sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.example.sofascoreacademy.project.ui.views.EditStringText
+            android:id="@+id/nameInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/surnameInput"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle"
+            app:textViewText="@string/textName"
+            app:textHint="@string/nameHint" />
+
+        <com.example.sofascoreacademy.project.ui.views.EditStringText
+            android:id="@+id/surnameInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/textViewAge"
+            app:layout_constraintTop_toBottomOf="@+id/nameInput"
+            app:textViewText="@string/textSurname"
+            app:textHint="@string/surnameHint" />
+
+        <include
+            android:id="@+id/posRadio"
+            layout="@layout/position_select"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/surnameInput"
+            app:layout_constraintTop_toBottomOf="@+id/textViewTitle" />
+
+
+        <TextView
+            android:id="@+id/textViewAge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:text="@string/textAge"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/ageInput" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ageInput"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:hint="@string/ageHint"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAge">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/ageInputText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/statusView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp"
+            android:text="@string/statusText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ageInput"
+            app:layout_constraintBottom_toTopOf="@+id/clubInput" />
+
+        <Spinner
+            android:id="@+id/positionSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/custom_button"
+            app:layout_constraintBottom_toTopOf="@id/clubInput"
+            app:layout_constraintStart_toEndOf="@+id/statusView"
+            app:layout_constraintTop_toBottomOf="@+id/ageInput" />
+
+        <com.example.sofascoreacademy.project.ui.views.EditStringText
+            android:id="@+id/clubInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/imageInput"
+            app:layout_constraintTop_toBottomOf="@+id/statusView"
+            app:textViewText="@string/textClub"
+            app:textHint="@string/clubHint" />
+
+        <TextView
+            android:id="@+id/apperanceNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="@string/textApper"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/clubInput"
+            app:layout_constraintTop_toBottomOf="@+id/posRadio" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/apperInput"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="@string/apperHint"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/apperanceNum"
+        app:layout_constraintTop_toBottomOf="@+id/apperanceNum">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/apperInputText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:inputType="number" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.example.sofascoreacademy.project.ui.views.EditStringText
+        android:id="@+id/imageInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/buttonAdd"
+        app:layout_constraintTop_toBottomOf="@+id/clubInput"
+        app:textViewText="@string/textImage"
+        app:textHint="@string/imageHint" />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/string_addbutton"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageInput" />
+
+    <TextView
+        android:id="@+id/invalidEnter"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        app:layout_constraintTop_toTopOf="@+id/buttonAdd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/buttonAdd" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
