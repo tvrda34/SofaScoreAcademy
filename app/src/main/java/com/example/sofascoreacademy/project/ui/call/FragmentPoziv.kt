@@ -12,6 +12,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.databinding.FragmentPozivBinding
 import com.example.sofascoreacademy.project.model.Footballer
+import com.example.sofascoreacademy.project.model.Position
 import com.example.sofascoreacademy.project.model.TeamRole
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
 
@@ -46,19 +47,19 @@ class FragmentPoziv : Fragment() {
         }
 
         val footballer = Footballer(
-            binding.nameInput.getCurrentText(),
-            binding.surnameInput.getCurrentText(),
-            binding.ageInputText.text.toString().toInt(),
-            when (binding.posRadio.radioGroup.checkedRadioButtonId) {
-                R.id.optionGoalkeeper -> getString(R.string.golman)
-                R.id.optionDefender -> getString(R.string.branic)
-                R.id.optionMidfielder -> getString(R.string.vezni)
-                else -> getString(R.string.napadac)
-            },
-            binding.clubInput.getCurrentText(),
-            binding.positionSpinner.selectedItem as TeamRole,
-            binding.apperInputText.text.toString().toInt(),
-            binding.imageInput.getCurrentText()
+                binding.nameInput.getCurrentText(),
+                binding.surnameInput.getCurrentText(),
+                binding.ageInputText.text.toString().toInt(),
+                when (binding.posRadio.radioGroup.checkedRadioButtonId) {
+                    R.id.optionGoalkeeper -> Position.Goalkeeper
+                    R.id.optionDefender -> Position.Defender
+                    R.id.optionMidfielder -> Position.Midfielder
+                    else -> Position.Forward
+                },
+                binding.clubInput.getCurrentText(),
+                binding.positionSpinner.selectedItem as TeamRole,
+                binding.apperInputText.text.toString().toInt(),
+                binding.imageInput.getCurrentText()
         )
         sharedViewModel.addToList(footballer)
 

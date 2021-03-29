@@ -48,7 +48,7 @@ class PlayerRecyclerAdapter(
         holder.binding.itemName.text = player.name.plus(" ").plus(player.surname)
         holder.binding.itemClub.text = player.club
         holder.binding.itemPos.text =
-            context.getString(R.string.textPosition).plus(": ").plus(player.position)
+            context.getString(R.string.textPosition).plus(": ").plus(context.getString(player.position.id))
     }
 
     override fun getItemCount(): Int {
