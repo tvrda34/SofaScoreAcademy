@@ -1,7 +1,7 @@
 # SofaScoreAcademy
 Repozitorij za rješavanje i objavljivanje rješenja zadaća SofaScore android akademije 2021.
 
-- [x] 1.DZ
+1.DZ
 Hello World projekt
   ○ Instalirati Android Studio i Kotlin plugin
   ○ Kreirati Github account
@@ -12,7 +12,7 @@ Hello World projekt
     ■ mora imati Button i TextView
     ■ na pritisak Buttona se TextView prikazuje/skriva, te se mijenja tekst Buttona
     
-- [x] 2.DZ
+2.DZ
 ● MVVM Activity s dva povezana Fragmenta
   ○ Napraviti Activity s dva Fragmenta
   ○ Napraviti custom klasu s bar 5 parametara 
@@ -20,7 +20,7 @@ Hello World projekt
   ○ Povezati fragmente na način da jedan služi za dodavanje
     u listu, a drugi prikazuje objekte iz liste
     
-- [x] 3.DZ
+3.DZ
   ● Ako niste, ostvarite ponašanje prethodne zadaće pomoću Bottom Navigation Activityja
     ○ kreirajte prema predlošku
     ○ dodajte view model
@@ -38,7 +38,7 @@ Hello World projekt
     podataka (neprazan string, Int vrijednost u ispravnom rasponu, ...)
   ● Koristiti ArrayAdapter za listu svojih objekata
   
-- [x] 4.DZ
+4.DZ
   ● Napraviti custom app bar
     ○ Kreirati i koristiti vlastitu temu
   ● Napraviti custom status bar
