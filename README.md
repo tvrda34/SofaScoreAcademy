@@ -1,5 +1,5 @@
 # SofaScoreAcademy
-Repozitorij za rješavanje i objavljivanje rješenja zadaća SofaScore android akademije 2021.
+Repozitorij za rješavanje i objavljivanje rješenja zadaća sa SofaScore android akademije 2021.
 
 ### 1.DZ
 Hello World projekt
