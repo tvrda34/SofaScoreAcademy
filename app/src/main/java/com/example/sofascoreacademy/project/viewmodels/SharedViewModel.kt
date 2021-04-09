@@ -9,32 +9,33 @@ import com.example.sofascoreacademy.project.model.SpecLoc
 
 import com.example.sofascoreacademy.project.networking.repository.Repository
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 
 class SharedViewModel() : ViewModel() {
-    private val cityList = MutableLiveData<List<Locations>>()
-    private val locDetail = MutableLiveData<SpecLoc>()
+    private val cityList = MutableLiveData<Response<List<Locations>>>()
+    private val locDetail = MutableLiveData<Response<SpecLoc>>()
 
     fun getCity(search: String) {
         viewModelScope.launch {
-            val response: List<Locations> = Repository().getLocations(search)
+            val response: Response<List<Locations>> = Repository().getLocations(search)
             cityList.value = response
         }
     }
 
     fun getLocData(woeid: Int) {
         viewModelScope.launch {
-            val response: SpecLoc = Repository().getSpecLoc(woeid)
-            Log.d("coru", response.parent.title)
+            val response: Response<SpecLoc> = Repository().getSpecLoc(woeid)
+            response.body()?.parent?.let { Log.d("coru", it.title) }
             locDetail.value = response
         }
     }
 
-    fun getCityList(): MutableLiveData<List<Locations>> {
+    fun getCityList(): MutableLiveData<Response<List<Locations>>> {
         return cityList
     }
 
-    fun getLocDetails(): MutableLiveData<SpecLoc> {
+    fun getLocDetails(): MutableLiveData<Response<SpecLoc>> {
         return locDetail
     }
 

@@ -1,13 +1,14 @@
 package com.example.sofascoreacademy.project.ui.search
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.databinding.FragmentSearchBinding
 import com.example.sofascoreacademy.project.adapter.LocationsRecyclerAdapter
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
@@ -25,13 +26,13 @@ class FragmentSearch : Fragment() {
         FragmentSearchBinding.inflate(inflater, container, false).also { _binding = it }
 
         sharedViewModel.getCityList().observe(viewLifecycleOwner, { locations ->
-            val adapter = LocationsRecyclerAdapter(requireContext(), locations)
-            binding.recView.adapter = adapter
-            binding.recView.layoutManager = LinearLayoutManager(requireContext())
-            binding.recView.setHasFixedSize(true)
-            if (locations != null) {
-                askDetails(locations[0].woeid)
-                Log.d("resp", locations[0].title)
+            if (locations.isSuccessful) {
+                val adapter = locations.body()?.let { LocationsRecyclerAdapter(requireContext(), it) }
+                binding.recView.adapter = adapter
+                binding.recView.layoutManager = LinearLayoutManager(requireContext())
+                binding.recView.setHasFixedSize(true)
+            } else {
+                Toast.makeText(requireContext(), getString(R.string.nf), Toast.LENGTH_LONG).show()
             }
         })
 
