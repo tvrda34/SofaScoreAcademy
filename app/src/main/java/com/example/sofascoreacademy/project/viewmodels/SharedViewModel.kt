@@ -1,42 +1,42 @@
 package com.example.sofascoreacademy.project.viewmodels
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sofascoreacademy.project.model.Footballer
-import com.example.sofascoreacademy.project.model.Position
-import com.example.sofascoreacademy.project.model.TeamRole
+import androidx.lifecycle.viewModelScope
+import com.example.sofascoreacademy.project.model.Locations
+import com.example.sofascoreacademy.project.model.SpecLoc
+
+import com.example.sofascoreacademy.project.networking.repository.Repository
+import kotlinx.coroutines.launch
 
 
-class SharedViewModel : ViewModel() {
-    private val liveList = MutableLiveData<ArrayList<Footballer>>()
+class SharedViewModel() : ViewModel() {
+    private val cityList = MutableLiveData<List<Locations>>()
+    private val locDetail = MutableLiveData<SpecLoc>()
 
-    init {
-        liveList.value = arrayListOf(
-                Footballer(
-                        "Luka", "Modrić", 35, Position.Midfielder, "Real Madrid", TeamRole.Legend, 133,
-                        "https://hns-cff.hr/files/images/_resized/0000033475_660_375_cut.jpg"
-                ),
-                Footballer(
-                        "Kristijan", "Lovrić", 25, Position.Forward, "HNK Gorica", TeamRole.RisingStar, 0,
-                        "https://gorica.info/wp-content/uploads/2020/09/lovric-e1600701269856.jpg"
-                ),
-                Footballer(
-                        "Franko", "Andrijašević", 29, Position.Midfielder, "HNK Rijeka", TeamRole.Maestro, 2,
-                        "https://hns-cff.hr/files/images/_resized/0000020498_660_375_cut.jpg"
-                ),
-                Footballer(
-                        "Mateo", "Kovačić", 26, Position.Midfielder, "Chelsea F.C.", TeamRole.Superstar, 61,
-                        "https://hns-cff.hr/files/images/_resized/0000032740_660_375_cut.jpg"
-                )
-        )
+    fun getCity(search: String) {
+        viewModelScope.launch {
+            val response: List<Locations> = Repository().getLocations(search)
+            cityList.value = response
+        }
     }
 
-    fun addToList(footballer: Footballer) {
-        liveList.value?.add(footballer)
+    fun getLocData(woeid: Int) {
+        viewModelScope.launch {
+            val response: SpecLoc = Repository().getSpecLoc(woeid)
+            Log.d("coru", response.parent.title)
+            locDetail.value = response
+        }
     }
 
-    fun getList(): MutableLiveData<ArrayList<Footballer>> {
-        return liveList
+    fun getCityList(): MutableLiveData<List<Locations>> {
+        return cityList
     }
+
+    fun getLocDetails(): MutableLiveData<SpecLoc> {
+        return locDetail
+    }
+
 
 }

@@ -5,74 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".project.ui.playerdetail.PlayerDetail"
-    tools:showIn="@layout/activity_player_detail">
+    tools:context=".project.ui.citydetail.CityDetail"
+    tools:showIn="@layout/city_name">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:background="@color/surface_0">
 
-        <ImageView
-            android:id="@+id/item_image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:importantForAccessibility="no"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/item_pos"
-            android:layout_width="wrap_content"
+        <include
+            layout="@layout/weather_master"
+            android:id="@+id/masterw"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:padding="15dp"
-            android:text="@string/textPosition"
-            android:textStyle="bold"
-            android:textAppearance="?attr/textAppearanceHeadline6"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_image" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-
-        <TextView
-            android:id="@+id/item_club"
-            android:layout_width="wrap_content"
+        <include
+            layout="@layout/inner_weather"
+            android:id="@+id/dailyw"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/textClub"
-            android:textStyle="bold"
-            android:textAppearance="?attr/textAppearanceHeadline5"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_pos" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/masterw" />
 
-        <TextView
-            android:id="@+id/item_apper"
-            android:layout_width="wrap_content"
+        <include
+            layout="@layout/inner_weather"
+            android:id="@+id/dailyns"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="15dp"
-            android:text="@string/textApper"
-            android:textAppearance="?attr/textAppearanceListItem"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_club" />
-
-        <TextView
-            android:id="@+id/item_status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="@string/statusText"
-            android:textAppearance="?attr/textAppearanceHeadline6"
-            android:textStyle="italic"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/item_apper" />
+            app:layout_constraintTop_toBottomOf="@+id/dailyw" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
