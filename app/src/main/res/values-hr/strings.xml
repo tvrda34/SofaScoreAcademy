@@ -68,4 +68,17 @@
     <string name="cord">37°47′N, 122°25′W</string>
     <string name="tpr">23°</string>
     <string name="nf">Nema lokacije za Vaš unos!</string>
+    <string name="coordinates">37°47′N, 122°25′W</string>
+    <string name="distance">Distance: </string>
+    <string name="no_favourites">Nema spremljenih gradova!</string>
+    <string name="recent">Nedavna pretraživanja</string>
+    <string name="remove_msg">" uklonjen iz favorita!"</string>
+    <string name="next_seven">Sljedećih 7 dana</string>
+    <string name="mon">PON</string>
+    <string name="tue">UTO</string>
+    <string name="wed">SRI</string>
+    <string name="thu">ČET</string>
+    <string name="fri">PET</string>
+    <string name="sat">SUB</string>
+    <string name="sun">NED</string>
 </resources>

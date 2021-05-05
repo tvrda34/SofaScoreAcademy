@@ -1,18 +1,21 @@
 package com.example.sofascoreacademy.project.ui.search
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.view.inputmethod.InputMethodManager
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.databinding.FragmentSearchBinding
 import com.example.sofascoreacademy.project.adapter.LocationsRecyclerAdapter
+import com.example.sofascoreacademy.project.model.Locations
+import com.example.sofascoreacademy.project.model.Recent
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
-
 
 class FragmentSearch : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -25,28 +28,31 @@ class FragmentSearch : Fragment() {
     ): View {
         FragmentSearchBinding.inflate(inflater, container, false).also { _binding = it }
 
+        binding.searchtb.citySearchEditText?.setOnKeyListener { view, keyCode, _ -> handleKeyEvent(view, keyCode) }
+
         sharedViewModel.getCityList().observe(viewLifecycleOwner, { locations ->
             if (locations.isSuccessful) {
-                val adapter = locations.body()?.let { LocationsRecyclerAdapter(requireContext(), it) }
+                val adapter = locations.body()?.let { LocationsRecyclerAdapter(requireContext(), it, this) }
                 binding.recView.adapter = adapter
                 binding.recView.layoutManager = LinearLayoutManager(requireContext())
                 binding.recView.setHasFixedSize(true)
-            } else {
-                Toast.makeText(requireContext(), getString(R.string.nf), Toast.LENGTH_LONG).show()
             }
         })
+
+        sharedViewModel.getRecent(requireContext())
+        sharedViewModel.getRecentList().observe(viewLifecycleOwner, { locations ->
+            if (locations.isNotEmpty()) {
+                val adapter = locations?.let { LocationsRecyclerAdapter(requireContext(), it, this) }
+                binding.recViewRecent.adapter = adapter
+                binding.recViewRecent.layoutManager = LinearLayoutManager(requireContext())
+                binding.recViewRecent.setHasFixedSize(true)
+            }
+        })
+
 
         return binding.root
     }
 
-    private fun askDetails(id: Int) {
-        sharedViewModel.getLocData(id)
-    }
-
-    /* private fun actCall(locDetail: SpecLoc) {
-         val intent = Intent(activity, CityDetail::class.java).putExtra("extra", locDetail)
-         startActivity(intent)
-     }*/
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -59,33 +65,32 @@ class FragmentSearch : Fragment() {
         setHasOptionsMenu(true)
     }
 
-    /*pokusao sam nadjacat glavni toolbar ali nije mi islo
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        menu.clear()
-        inflater.inflate(R.menu.search_menu, menu)
-        val item = menu.findItem(R.id.action_search)
-        val searchView = SearchView((requireContext() as MainActivity).supportActionBar!!.themedContext)
-        item.setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        item.setActionView(searchView)
-        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String): Boolean {
-                searchView.clearFocus()
-                Log.d("Fraq", query)
-                searchView.setQuery(searchView.getQuery(), true);
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
-        searchView.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View?) {}
+    private fun handleKeyEvent(view: View, keyCode: Int): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_ENTER) {
+            Log.d("ResponseFragSearch", binding.searchtb.citySearchEditText?.text.toString())
+            sharedViewModel.getCity(binding.searchtb.citySearchEditText?.text.toString())
+            binding.searchtb.citySearchEditText?.setText("")
+            binding.searchtb.citySearchEditText?.clearFocus()
+            // Hide the keyboard
+            val inputMethodManager =
+                    activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            return true
         }
-        )
-    }*/
+        return false
+    }
+
+    fun addToFavourites(location: Locations) {
+        sharedViewModel.addCityToDb(requireContext(), location)
+    }
+
+    fun removeFromFavourites(location: Locations) {
+        sharedViewModel.removeCity(requireContext(), location)
+    }
+
+    fun addRecent(location: Recent) {
+        sharedViewModel.addRecentToDb(requireContext(), location)
+    }
 
 }
 

@@ -6,6 +6,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".project.ui.settings.FragmentSettings">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/tint_primary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="#798fa4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:text="@string/title_settings"
+            android:textColor="@color/surface_0"
+            android:textSize="20sp"
+            android:textAppearance="@style/Headline2Surface1Left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp" />
+
+    </androidx.appcompat.widget.Toolbar>
+
     <TextView
         android:id="@+id/titleLang"
         android:layout_width="match_parent"
@@ -13,13 +41,9 @@
         android:layout_margin="48dp"
         android:text="@string/lang_title"
         android:textAlignment="center"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layout_constraintStart_toEndOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <!--button view for hindi language-->
-
-    <!--button view for english language-->
 
     <Button
         android:id="@+id/btnCro"

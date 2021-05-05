@@ -7,8 +7,11 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.databinding.CityNameBinding
+import com.example.sofascoreacademy.project.adapter.WeatherRecyclerAdapter
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
 import com.google.android.material.appbar.CollapsingToolbarLayout
@@ -51,7 +54,6 @@ class CityDetail : AppCompatActivity() {
                 binding.weatherDetail.masterw.baseInfo.date.text = city.consolidated_weather[0].formattedApplicableDate()
                 binding.weatherDetail.masterw.baseInfo.basicInfo.text = city.consolidated_weather[0].weather_state_name
                 binding.weatherDetail.masterw.baseInfo.itemPos.text = city.consolidated_weather[0].the_temp.roundToInt().toString().plus("°")
-                //binding.weatherDetail.masterw.baseInfo.weatherPic.background = findAbr(city.consolidated_weather[0].weather_state_abr)
 
                 //vrijednosti
                 binding.weatherDetail.masterw.weatherMinmax.data.text = city.consolidated_weather[0].min_temp.roundToInt().toString().plus("°")
@@ -62,6 +64,33 @@ class CityDetail : AppCompatActivity() {
                 binding.weatherDetail.masterw.weatherPreasure.data.text = city.consolidated_weather[0].air_pressure.roundToInt().toString().plus(" hPa")
                 binding.weatherDetail.masterw.weatherVisibility.data.text = (city.consolidated_weather[0].visibility * kmMlConverter).roundToInt().toString().plus(" km")
                 binding.weatherDetail.masterw.weatherAccuracy.data.text = city.consolidated_weather[0].predictability.toString().plus("%")
+
+
+                //slike
+                binding.weatherDetail.masterw.baseInfo.weatherPic.setBackgroundColor(0)
+                when (city.consolidated_weather[0].weather_state_name) {
+                    "Clear" -> binding.weatherDetail.masterw.baseInfo.weatherPic.load(R.drawable.ic_c)
+                    "Heavy Cloud" -> binding.weatherDetail.masterw.baseInfo.weatherPic.load(R.drawable.ic_hc)
+                    "Sleet" -> binding.weatherDetail.masterw.baseInfo.weatherPic.load(R.drawable.ic_sl)
+                    "Snow" -> binding.weatherDetail.masterw.baseInfo.weatherPic.load(R.drawable.ic_sn)
+                    "Light Rain" -> binding.weatherDetail.masterw.baseInfo.weatherPic.load(R.drawable.ic_lr)
+                    "Heavy Rain" -> binding.weatherDetail.masterw.baseInfo.weatherPic.load(R.drawable.ic_hr)
+                    "Thunderstorm" -> binding.weatherDetail.masterw.baseInfo.weatherPic.load(R.drawable.ic_t)
+                    "Showers" -> binding.weatherDetail.masterw.baseInfo.weatherPic.load(R.drawable.ic_s)
+                    else -> { // Note the block
+                        binding.weatherDetail.masterw.baseInfo.weatherPic.load(R.drawable.ic_lc)
+                    }
+                }
+
+                //recycleri
+                val adapter = WeatherRecyclerAdapter(this, city.consolidated_weather)
+                binding.weatherDetail.dailyw.recView.adapter = adapter
+                binding.weatherDetail.dailyw.recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                binding.weatherDetail.dailyw.recView.setHasFixedSize(true)
+
+                binding.weatherDetail.dailyns.recView.adapter = adapter
+                binding.weatherDetail.dailyns.recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                binding.weatherDetail.dailyns.recView.setHasFixedSize(true)
             }
         })
 
@@ -74,6 +103,11 @@ class CityDetail : AppCompatActivity() {
             binding.weatherDetail.masterw.weatherAccuracy.icon.background = baseContext.getDrawable(R.drawable.ic_accuracy)
         }
 
+        binding.weatherDetail.dailyns.innerTitle.text = getString(R.string.next_seven)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            binding.weatherDetail.dailyns.innerTitle.setTextAppearance(R.style.AssistiveColdGrayLeft)
+        }
+
 
         //back u activity
         val bv = findViewById<View>(R.id.back)
@@ -82,21 +116,4 @@ class CityDetail : AppCompatActivity() {
         }
     }
 
-    /*  @SuppressLint("UseCompatLoadingForDrawables")
-      @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
-      private fun findAbr(weatherStateAbr: String): Drawable {
-          return when (weatherStateAbr) {
-              "c" -> getDrawable(R.drawable.ic_c)!!
-              "hc" -> getDrawable(R.drawable.ic_hc)!!
-              "sl" -> getDrawable(R.drawable.ic_sl)!!
-              "sn" -> getDrawable(R.drawable.ic_sn)!!
-              "lr" -> getDrawable(R.drawable.ic_lr)!!
-              "hr" -> getDrawable(R.drawable.ic_hr)!!
-              "t" -> getDrawable(R.drawable.ic_t)!!
-              "s" -> getDrawable(R.drawable.ic_s)!!
-              else -> { // Note the block
-                  getDrawable(R.drawable.ic_lc)!!
-              }
-          }
-      }*/
 }

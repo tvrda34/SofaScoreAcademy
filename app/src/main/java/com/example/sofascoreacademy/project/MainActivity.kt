@@ -6,23 +6,18 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
-import android.widget.EditText
-import android.widget.ImageView
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.sofascoreacademy.R
-import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
+import com.example.sofascoreacademy.project.database.WeatherDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel: SharedViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -39,6 +34,7 @@ class MainActivity : AppCompatActivity() {
                         R.id.navigation_poziv, R.id.navigation_repka
                 )
         )
+        WeatherDatabase.getDatabase(this)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
@@ -50,14 +46,6 @@ class MainActivity : AppCompatActivity() {
                       .setIcon(android.R.drawable.ic_dialog_alert).show()*//*
         }*/
 
-        val textv = findViewById<EditText>(R.id.ti)
-        val sv = findViewById<ImageView>(R.id.sim)
-        sv.setOnClickListener {
-            Log.d("Respon", textv.text.toString())
-            viewModel.getCity(textv.text.toString())
-            textv.setText("")
-
-        }
     }
 
 
@@ -102,32 +90,5 @@ class MainActivity : AppCompatActivity() {
         }
         return result
     }
-
-    /* -pokusaj ne radi
-     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-         menuInflater.inflate(R.menu.search_menu, menu)
-         val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-         val searchItem: MenuItem? = menu?.findItem(R.id.action_search)
-         val searchView: SearchView = searchItem?.actionView as SearchView
-
-         searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
-         searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
-                 override fun onQueryTextSubmit(query: String): Boolean {
-                     viewModel.getCity(query)
-                     Log.d("actw", query)
-                     searchView.clearFocus()
-                     searchView.setQuery("", false)
-                     searchItem.collapseActionView()
-                     Toast.makeText(this@MainActivity, "aaaaa", Toast.LENGTH_SHORT ).show()
-
-                     return true
-                 }
-
-                 override fun onQueryTextChange(newText: String?): Boolean {
-                     return false
-                 }
-             })
-         return true
-     }*/
 
 }

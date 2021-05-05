@@ -68,4 +68,17 @@
     <string name="cord">37°47′N, 122°25′W</string>
     <string name="tpr">23°</string>
     <string name="nf">Not found!</string>
+    <string name="coordinates">37°47′N, 122°25′W</string>
+    <string name="distance">Distance: </string>
+    <string name="no_favourites">No favourite cities!</string>
+    <string name="recent">Recent</string>
+    <string name="remove_msg">" removed from favourites!"</string>
+    <string name="next_seven">Next 7 days</string>
+    <string name="mon">MON</string>
+    <string name="tue">TUE</string>
+    <string name="wed">WED</string>
+    <string name="thu">THU</string>
+    <string name="fri">FRI</string>
+    <string name="sat">SAT</string>
+    <string name="sun">SUN</string>
 </resources>

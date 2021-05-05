@@ -2,6 +2,7 @@ package com.example.sofascoreacademy.project.networking.api
 
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.SpecLoc
+import com.example.sofascoreacademy.project.model.favouriteCity
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -13,5 +14,8 @@ interface WeatherService {
 
     @GET("location/{id}")
     suspend fun getLocationInfo(@Path("id") number: Int): Response<SpecLoc>
+
+    @GET("location/{id}")
+    suspend fun getFavDetail(@Path("id") number: Int): Response<favouriteCity>
 
 }

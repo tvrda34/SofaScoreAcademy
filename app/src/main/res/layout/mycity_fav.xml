@@ -4,13 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@color/surface_1"
+    android:background="@color/surface_0"
     android:id="@+id/rec_item">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/surface_1">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/star"
@@ -19,7 +18,7 @@
             android:importantForAccessibility="no"
             android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
-            android:background="@drawable/ic_star_0"
+            android:background="@drawable/ic_star_1"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
@@ -66,10 +65,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/coord"
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/coordinates"
+            android:text="@string/time_pre"
             android:textAppearance="@style/BodyColdGrayLeft"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
@@ -78,16 +77,16 @@
             app:layout_constraintTop_toBottomOf="@id/title" />
 
         <TextView
-            android:id="@+id/dist"
+            android:id="@+id/tzone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/distance"
+            android:text="@string/time_pre"
             android:textAppearance="@style/BodyColdGrayLeft"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="16dp"
             android:textSize="14sp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/coord"
+            app:layout_constraintTop_toBottomOf="@id/time"
             app:layout_constraintBottom_toBottomOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
