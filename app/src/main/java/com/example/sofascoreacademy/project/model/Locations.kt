@@ -67,7 +67,8 @@ data class City(
         val air_pressure: Float,    //mbar
         val humidity: Float,    //%
         val visibility: Float, //miles
-        val predictability: Int //%
+        val predictability: Int,
+        val created: String//%
 ) : Serializable {
     fun formattedApplicableDate(): String = formattedApplicableDate("EEE, MMM d")
 

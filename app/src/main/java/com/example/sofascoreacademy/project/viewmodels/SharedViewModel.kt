@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sofascoreacademy.project.database.WeatherDatabase
+import com.example.sofascoreacademy.project.model.City
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.Recent
 import com.example.sofascoreacademy.project.model.SpecLoc
 import com.example.sofascoreacademy.project.networking.repository.Repository
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
@@ -20,6 +22,7 @@ class SharedViewModel : ViewModel() {
     private val favourites = MutableLiveData<List<Locations>>()
     private val recent = MutableLiveData<List<Locations>>()
     private val recData = MutableLiveData<SpecLoc>()
+    private val daily = MutableLiveData<Response<List<City>>>()
 
     fun getCity(search: String) {
         viewModelScope.launch {
@@ -104,5 +107,33 @@ class SharedViewModel : ViewModel() {
 
     fun getRecyclerData(): MutableLiveData<SpecLoc> {
         return recData
+    }
+
+    //delete all
+
+    fun deleteAllRecent(context: Context) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            db?.weatherDao()?.deleteAllFromTableRecent()
+        }
+    }
+
+    fun deleteAllFavourite(context: Context) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            db?.weatherDao()?.deleteAllFromTableLocations()
+        }
+    }
+
+    //daily detail
+    fun getDaily(id: String, date: String) {
+        viewModelScope.launch {
+            val response = async { Repository().getDailyDetail(id, date) }
+            daily.value = response.await()
+        }
+    }
+
+    fun getDailyValue(): MutableLiveData<Response<List<City>>> {
+        return daily
     }
 }

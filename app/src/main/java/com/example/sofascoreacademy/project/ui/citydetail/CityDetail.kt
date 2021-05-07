@@ -3,6 +3,7 @@ package com.example.sofascoreacademy.project.ui.citydetail
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.databinding.CityNameBinding
+import com.example.sofascoreacademy.project.adapter.WeatherDailyRecyclerAdapter
 import com.example.sofascoreacademy.project.adapter.WeatherRecyclerAdapter
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
@@ -36,12 +38,22 @@ class CityDetail : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
         findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
 
+        viewModel.getFavourites(this)
 
         val search = intent.getSerializableExtra("extra") as Locations
+        val lista = ArrayList<Locations>()
+        viewModel.getFavouriteList().observe(this, {
+            Log.d("ListaCont", it.size.toString())
+            lista.addAll(it)
+        })
+
         viewModel.getLocData(search.woeid)
         viewModel.getLocDetails().observe(this, { response ->
             val city = response.body()
             if (city != null) {
+
+                viewModel.getDaily(search.woeid.toString(), city.consolidated_weather[0].applicable_date.replace("-", "/"))
+
                 binding.weatherDetail.masterw.weatherAccuracy.iconName.text = getString(R.string.accuracy)
                 binding.weatherDetail.masterw.weatherHumidity.iconName.text = getString(R.string.humidity)
                 binding.weatherDetail.masterw.weatherMinmax.iconName.text = getString(R.string.min_max)
@@ -82,15 +94,40 @@ class CityDetail : AppCompatActivity() {
                     }
                 }
 
+                //zvijezda
+                Log.d("ListaCont", lista.contains(search).toString())
+                Log.d("ListaCont", lista.size.toString())
+                if (lista.contains(search)) {
+                    binding.fav.tag = "starnov"
+                    binding.fav.setBackgroundResource(R.drawable.ic_star_1)
+                } else {
+                    binding.fav.tag = "starpoc"
+                    binding.fav.setBackgroundResource(R.drawable.ic_star_0)
+                }
+                binding.fav.setOnClickListener {
+                    if (binding.fav.tag.equals("starpoc")) {
+                        it.setBackgroundResource(R.drawable.ic_star_1)
+                        binding.fav.tag = "starnov"
+                        viewModel.addCityToDb(this, search)
+                    } else {
+                        it.setBackgroundResource(R.drawable.ic_star_0)
+                        binding.fav.tag = "starpoc"
+                        viewModel.removeCity(this, search)
+                    }
+                }
+
                 //recycleri
                 val adapter = WeatherRecyclerAdapter(this, city.consolidated_weather)
-                binding.weatherDetail.dailyw.recView.adapter = adapter
-                binding.weatherDetail.dailyw.recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
-                binding.weatherDetail.dailyw.recView.setHasFixedSize(true)
-
                 binding.weatherDetail.dailyns.recView.adapter = adapter
                 binding.weatherDetail.dailyns.recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                 binding.weatherDetail.dailyns.recView.setHasFixedSize(true)
+
+                viewModel.getDailyValue().observe(this, {
+                    val adapterDaily = it.body()?.let { it1 -> WeatherDailyRecyclerAdapter(this, it1.sortedBy { it.created }) }
+                    binding.weatherDetail.dailyw.recView.adapter = adapterDaily
+                    binding.weatherDetail.dailyw.recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+                    binding.weatherDetail.dailyw.recView.setHasFixedSize(true)
+                })
             }
         })
 
@@ -107,7 +144,6 @@ class CityDetail : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             binding.weatherDetail.dailyns.innerTitle.setTextAppearance(R.style.AssistiveColdGrayLeft)
         }
-
 
         //back u activity
         val bv = findViewById<View>(R.id.back)

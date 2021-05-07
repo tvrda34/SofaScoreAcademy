@@ -12,8 +12,8 @@ interface WeatherDao {
     @Query("SELECT * FROM Recent")
     suspend fun getRecent(): List<Locations>
 
-    @Query("SELECT * FROM Locations WHERE woeid IN (:locationIds)")
-    suspend fun loadAllByIds(locationIds: IntArray): List<Locations>
+    @Query("SELECT * FROM Locations WHERE woeid = (:locationIds)")
+    suspend fun loadAllByIds(locationIds: Int): List<Locations>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertAll(vararg users: Locations)
@@ -26,4 +26,10 @@ interface WeatherDao {
 
     @Delete
     suspend fun delete(location: Locations)
+
+    @Query("DELETE FROM Locations")
+    suspend fun deleteAllFromTableLocations()
+
+    @Query("DELETE FROM Recent")
+    suspend fun deleteAllFromTableRecent()
 }

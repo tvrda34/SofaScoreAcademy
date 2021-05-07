@@ -15,6 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SofaScoreAcademy">
         <activity
+            android:name=".project.ui.About"
+            android:parentActivityName=".project.MainActivity" />
+        <activity
             android:name=".project.ui.citydetail.CityDetail"
             android:label="@string/title_activity_player_detail"
             android:parentActivityName=".project.MainActivity"

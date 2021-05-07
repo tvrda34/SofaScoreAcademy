@@ -28,6 +28,7 @@ class FragmentMyCity : Fragment() {
 
         sharedViewModel.getFavourites(requireContext())
 
+
         sharedViewModel.getFavouriteList().observe(viewLifecycleOwner, { fav ->
             if (fav.isNotEmpty()) {
                 binding.msg?.visibility = View.INVISIBLE

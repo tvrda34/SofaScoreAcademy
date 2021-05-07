@@ -11,6 +11,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.androidakademija.helpers.LanguageHelper
 import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.project.database.WeatherDatabase
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -89,6 +90,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return result
+    }
+
+    override fun attachBaseContext(newBase: Context) {
+        super.attachBaseContext(LanguageHelper.wrapLanguage(newBase))
     }
 
 }

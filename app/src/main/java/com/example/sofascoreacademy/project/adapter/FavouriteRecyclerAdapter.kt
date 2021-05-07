@@ -78,6 +78,7 @@ class FavouriteRecyclerAdapter(val context: Context, val locations: ArrayList<Lo
                 }
             }
         }
+
     }
 
     override fun getItemCount(): Int {
