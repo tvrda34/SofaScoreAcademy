@@ -38,19 +38,6 @@
                 android:layout_marginBottom="20dp" />
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/calendar"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:background="@drawable/ic_calendar"
-                android:backgroundTint="@color/surface_0"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/edit"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="24dp"
-                android:layout_marginBottom="8dp" />
-
-            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/edit"
                 android:layout_width="24dp"
                 android:layout_height="24dp"

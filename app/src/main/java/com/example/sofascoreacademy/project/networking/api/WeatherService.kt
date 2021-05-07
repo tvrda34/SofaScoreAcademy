@@ -1,6 +1,7 @@
 package com.example.sofascoreacademy.project.networking.api
 
 import com.example.sofascoreacademy.project.model.City
+import com.example.sofascoreacademy.project.model.LocLatt
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.SpecLoc
 import retrofit2.Response
@@ -21,4 +22,6 @@ interface WeatherService {
             @Path("date") date: String
     ): Response<List<City>>
 
+    @GET("location/search/")
+    suspend fun getDistance(@Query("lattlong") location: String): Response<List<LocLatt>>
 }

@@ -1,6 +1,7 @@
 package com.example.sofascoreacademy.project.database
 
 import androidx.room.*
+import com.example.sofascoreacademy.project.model.BaseCity
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.Recent
 
@@ -32,4 +33,10 @@ interface WeatherDao {
 
     @Query("DELETE FROM Recent")
     suspend fun deleteAllFromTableRecent()
+
+    @Query("SELECT latt_long FROM BaseCity")
+    suspend fun getBaseCity(): String
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addBaseCity(base: BaseCity)
 }

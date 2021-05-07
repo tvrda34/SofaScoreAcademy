@@ -16,8 +16,9 @@ import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.Recent
 import com.example.sofascoreacademy.project.ui.citydetail.CityDetail
 import com.example.sofascoreacademy.project.ui.search.FragmentSearch
+import kotlin.math.*
 
-class LocationsRecyclerAdapter(val context: Context, val locations: List<Locations>, val frag: FragmentSearch, val fav: ArrayList<Locations>)
+class LocationsRecyclerAdapter(val context: Context, val locations: List<Locations>, val frag: FragmentSearch, val fav: ArrayList<Locations>, val dist: List<String>)
     : RecyclerView.Adapter<LocationsRecyclerAdapter.LocationViewHolder>() {
 
     inner class LocationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -50,7 +51,10 @@ class LocationsRecyclerAdapter(val context: Context, val locations: List<Locatio
         val location = locations[position]
 
         holder.binding.title.text = location.title
-        holder.binding.dist.text = context.getString(R.string.distance).plus(location.latt_long)
+        holder.binding.coord.text = location.latt_long
+        if (dist.isNotEmpty()) {
+            holder.binding.dist.text = context.getString(R.string.distance).plus(distanceCalculate(location.latt_long))
+        }
 
         if (fav.contains(location)) {
             holder.binding.star.tag = "starnov"
@@ -78,6 +82,39 @@ class LocationsRecyclerAdapter(val context: Context, val locations: List<Locatio
 
     override fun getItemCount(): Int {
         return locations.size
+    }
+
+    private fun distanceCalculate(latt: String): String {
+        val coord = latt.split(",")
+
+        val lon1 = Math.toRadians(coord[1].toDouble())
+        val lon2 = Math.toRadians(dist[1].toDouble())
+        val lat1 = Math.toRadians(coord[0].toDouble())
+        val lat2 = Math.toRadians(dist[1].toDouble())
+
+        // Haversine formula
+        val dlon: Double = lon2 - lon1
+        Log.d("Dist-Lon1", Math.toRadians(coord[1].toDouble()).toString())
+        Log.d("Dist-Lon2", Math.toRadians(dist[1].toDouble()).toString())
+        Log.d("Dist-Latt1", Math.toRadians(coord[0].toDouble()).toString())
+        Log.d("Dist-Latt2", Math.toRadians(dist[0].toDouble()).toString())
+        val dlat: Double = lat2 - lat1
+        if (!(dlat == 0.0) && !(dlon == 0.0)) {
+            val a = (sin(dlat / 2).pow(2.0)
+                    + (cos(lat1) * cos(lat2)
+                    * sin(dlon / 2).pow(2.0)))
+
+            val c = 2 * asin(sqrt(a))
+
+            // Radius of earth in kilometers. Use 3956 for miles
+            val r = 6371.0
+
+
+            // calculate the result
+            return (c * r).roundToInt().toString().plus(" km")
+        } else {
+            return "0 km"
+        }
     }
 
 

@@ -17,6 +17,14 @@ data class Locations(
         val latt_long: String
 ) : Serializable
 
+data class LocLatt(
+        val title: String,
+        val location_type: String,
+        val woeid: Int,
+        val latt_long: String,
+        val distance: Int
+) : Serializable
+
 
 data class SpecLoc(
         val parent: Locations,
@@ -129,8 +137,11 @@ data class Recent(
         val latt_long: String
 ) : Serializable
 
-data class Daily(
-        val consolidated_weather: List<City>
+@Entity
+data class BaseCity(
+        val title: String,
+        @PrimaryKey
+        val latt_long: String
 ) : Serializable
 
 

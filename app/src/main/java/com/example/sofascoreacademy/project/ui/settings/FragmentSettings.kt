@@ -34,8 +34,6 @@ class FragmentSettings : Fragment() {
     ): View {
         _binding = SettingsBinding.inflate(inflater, container, false)
 
-        sharedViewModel.getFavourites(requireContext())
-
         val languageArray = requireContext().resources.getStringArray(R.array.available_languages)
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, languageArray)
         binding.lsel?.setAdapter(adapter)
@@ -45,7 +43,7 @@ class FragmentSettings : Fragment() {
         }*/
 
         val cityArray = ArrayList<String>()
-        sharedViewModel.getFavouriteList().observe(viewLifecycleOwner, {
+        sharedViewModel.favourites.observe(viewLifecycleOwner, {
             for (i in it) {
                 if (!cityArray.contains(i.title))
                     cityArray.add(i.title)

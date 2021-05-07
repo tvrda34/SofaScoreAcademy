@@ -32,8 +32,13 @@ class FragmentSearch : Fragment() {
         FragmentSearchBinding.inflate(inflater, container, false).also { _binding = it }
 
         val list = ArrayList<Locations>()
-        sharedViewModel.getFavouriteList().observe(viewLifecycleOwner, { favs ->
+        sharedViewModel.favourites.observe(viewLifecycleOwner, { favs ->
             list.addAll(favs)
+        })
+
+        val cityCoord = ArrayList<String>()
+        sharedViewModel.lat.observe(viewLifecycleOwner, {
+            cityCoord.addAll(it.split(","))
         })
 
         binding.citySearchEditText.threshold = 3
@@ -56,9 +61,13 @@ class FragmentSearch : Fragment() {
             }
         })
 
-        sharedViewModel.getCityList().observe(viewLifecycleOwner, { locations ->
-            if (locations.isSuccessful) {
-                val adapter = locations.body()?.let { LocationsRecyclerAdapter(requireContext(), it, this, list) }
+        //pokusao sam da ne ostane rupa na pcoetku ali ne radi - izvitoperi se sve
+        //binding.recView.layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+
+        sharedViewModel.cityList.observe(viewLifecycleOwner, { locations ->
+            if (locations.isSuccessful && locations.body()?.isNotEmpty() == true) {
+                //binding.recView.layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, 0)
+                val adapter = locations.body()?.let { LocationsRecyclerAdapter(requireContext(), it, this, list, cityCoord) }
                 binding.recView.adapter = adapter
                 binding.recView.layoutManager = LinearLayoutManager(requireContext())
                 binding.recView.setHasFixedSize(true)
@@ -66,9 +75,9 @@ class FragmentSearch : Fragment() {
         })
 
         sharedViewModel.getRecent(requireContext())
-        sharedViewModel.getRecentList().observe(viewLifecycleOwner, { locations ->
+        sharedViewModel.recent.observe(viewLifecycleOwner, { locations ->
             if (locations.isNotEmpty()) {
-                val adapter = locations?.let { LocationsRecyclerAdapter(requireContext(), it, this, list) }
+                val adapter = locations?.let { LocationsRecyclerAdapter(requireContext(), it, this, list, cityCoord) }
                 binding.recViewRecent.adapter = adapter
                 binding.recViewRecent.layoutManager = LinearLayoutManager(requireContext())
                 binding.recViewRecent.setHasFixedSize(true)

@@ -107,4 +107,5 @@
     <string name="language">Language</string>
     <string name="cityp">pick a city</string>
     <string name="languagep">pick a language</string>
+    <string name="gmt">GMT</string>
 </resources>

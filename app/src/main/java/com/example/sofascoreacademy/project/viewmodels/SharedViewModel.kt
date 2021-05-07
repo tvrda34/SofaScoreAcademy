@@ -6,23 +6,22 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.sofascoreacademy.project.database.WeatherDatabase
-import com.example.sofascoreacademy.project.model.City
-import com.example.sofascoreacademy.project.model.Locations
-import com.example.sofascoreacademy.project.model.Recent
-import com.example.sofascoreacademy.project.model.SpecLoc
+import com.example.sofascoreacademy.project.model.*
 import com.example.sofascoreacademy.project.networking.repository.Repository
 import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import retrofit2.Response
 
 
 class SharedViewModel : ViewModel() {
-    private val cityList = MutableLiveData<Response<List<Locations>>>()
-    private val locDetail = MutableLiveData<Response<SpecLoc>>()
-    private val favourites = MutableLiveData<List<Locations>>()
-    private val recent = MutableLiveData<List<Locations>>()
-    private val recData = MutableLiveData<SpecLoc>()
-    private val daily = MutableLiveData<Response<List<City>>>()
+    val cityList = MutableLiveData<Response<List<Locations>>>()
+    val locDetail = MutableLiveData<Response<SpecLoc>>()
+    val favourites = MutableLiveData<List<Locations>>()
+    val recent = MutableLiveData<List<Locations>>()
+    val daily = MutableLiveData<Response<List<City>>>()
+    val detail = MutableLiveData<List<Response<SpecLoc>>>()
+    val lat = MutableLiveData<String>()
 
     fun getCity(search: String) {
         viewModelScope.launch {
@@ -39,13 +38,7 @@ class SharedViewModel : ViewModel() {
         }
     }
 
-    fun getCityList(): MutableLiveData<Response<List<Locations>>> {
-        return cityList
-    }
 
-    fun getLocDetails(): MutableLiveData<Response<SpecLoc>> {
-        return locDetail
-    }
 
     //favourites
     fun addCityToDb(context: Context, location: Locations) {
@@ -59,13 +52,13 @@ class SharedViewModel : ViewModel() {
     fun getFavourites(context: Context) {
         viewModelScope.launch {
             val db = WeatherDatabase.getDatabase(context)
-            favourites.value = db?.weatherDao()?.getAll()
+            val response = db?.weatherDao()?.getAll()
+            val detailResponse = response?.map { detail -> async { Repository().getSpecLoc(detail.woeid) } }
+            detail.value = detailResponse?.awaitAll()
+            favourites.value = response!!
         }
     }
 
-    fun getFavouriteList(): MutableLiveData<List<Locations>> {
-        return favourites
-    }
 
     //remove city from db
     fun removeCity(context: Context, location: Locations) {
@@ -92,22 +85,6 @@ class SharedViewModel : ViewModel() {
         }
     }
 
-    fun getRecentList(): MutableLiveData<List<Locations>> {
-        return recent
-    }
-
-    //data
-    fun getRecyclerInfo(woeid: Int) {
-        viewModelScope.launch {
-            val response: Response<SpecLoc> = Repository().getSpecLoc(woeid)
-            recData.value = response.body()
-            Log.d("aaaaaaaa", recData.value.toString())
-        }
-    }
-
-    fun getRecyclerData(): MutableLiveData<SpecLoc> {
-        return recData
-    }
 
     //delete all
 
@@ -133,7 +110,29 @@ class SharedViewModel : ViewModel() {
         }
     }
 
-    fun getDailyValue(): MutableLiveData<Response<List<City>>> {
-        return daily
+    //detalji za listu lokacija
+    fun getDetailLoc(location: List<Locations>) {
+        viewModelScope.launch {
+            val detailResponse = location.map { detail -> async { Repository().getSpecLoc(detail.woeid) } }
+            detail.value = detailResponse.awaitAll()
+        }
     }
+
+    //distance
+    fun getLat(context: Context) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            lat.value = db?.weatherDao()?.getBaseCity()
+        }
+    }
+
+    fun addBaseToDb(context: Context, baseCity: BaseCity) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            db?.weatherDao()?.addBaseCity(baseCity)
+            getLat(context)
+        }
+    }
+
+
 }

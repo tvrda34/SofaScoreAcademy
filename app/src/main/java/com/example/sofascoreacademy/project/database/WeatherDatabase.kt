@@ -6,10 +6,11 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.sofascoreacademy.project.model.BaseCity
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.Recent
 
-@Database(entities = [Locations::class, Recent::class], version = 3, exportSchema = false)
+@Database(entities = [Locations::class, Recent::class, BaseCity::class], version = 4, exportSchema = false)
 
 abstract class WeatherDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao
@@ -42,11 +43,21 @@ abstract class WeatherDatabase : RoomDatabase() {
                 }
             }
 
+            val MIGRATION_3_4: Migration = object : Migration(3, 4) {
+                override fun migrate(database: SupportSQLiteDatabase) {
+                    // Remove the table
+                    database.execSQL(" CREATE TABLE IF NOT EXISTS BaseCity(\n" +
+                            "                    latt_long TEXT PRIMARY KEY NOT NULL,\n" +
+                            "                    title TEXT NOT NULL\n" +
+                            "                )")
+                }
+            }
+
             return Room.databaseBuilder(
                     context.applicationContext,
                     WeatherDatabase::class.java,
                     "WeatherDatabase.db"
-            ).addMigrations(MIGRATION_1_2).addMigrations(MIGRATION_2_3).build()
+            ).addMigrations(MIGRATION_1_2).addMigrations(MIGRATION_2_3).addMigrations(MIGRATION_3_4).build()
         }
     }
 

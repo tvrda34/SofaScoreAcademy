@@ -1,6 +1,7 @@
 package com.example.sofascoreacademy.project.networking.repository
 
 import com.example.sofascoreacademy.project.model.City
+import com.example.sofascoreacademy.project.model.LocLatt
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.SpecLoc
 import com.example.sofascoreacademy.project.networking.api.Network
@@ -17,5 +18,9 @@ class Repository {
 
     suspend fun getDailyDetail(id: String, date: String): Response<List<City>> {
         return Network().getService().getDailyInfo(id, date)
+    }
+
+    suspend fun getDistance(coordinates: String): Response<List<LocLatt>> {
+        return Network().getService().getDistance(coordinates)
     }
 }

@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,10 +15,13 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.androidakademija.helpers.LanguageHelper
 import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.project.database.WeatherDatabase
+import com.example.sofascoreacademy.project.model.BaseCity
+import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
+    private val viewModel: SharedViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +51,9 @@ class MainActivity : AppCompatActivity() {
                       .setIcon(android.R.drawable.ic_dialog_alert).show()*//*
         }*/
 
+        viewModel.getFavourites(this)
+        viewModel.getLat(this)
+        viewModel.addBaseToDb(this, BaseCity("Zagreb", "45.807259,15.967600"))
     }
 
 

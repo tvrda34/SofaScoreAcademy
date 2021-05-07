@@ -14,6 +14,7 @@ import com.example.sofascoreacademy.project.adapter.FavouriteRecyclerAdapter
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.SpecLoc
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
+import retrofit2.Response
 
 class FragmentMyCity : Fragment() {
     private var _binding: FragmentFavouriteBinding? = null
@@ -26,17 +27,19 @@ class FragmentMyCity : Fragment() {
     ): View {
         _binding = FragmentFavouriteBinding.inflate(inflater, container, false)
 
-        sharedViewModel.getFavourites(requireContext())
+        val details = ArrayList<Response<SpecLoc>>()
 
-
-        sharedViewModel.getFavouriteList().observe(viewLifecycleOwner, { fav ->
+        sharedViewModel.favourites.observe(viewLifecycleOwner, { fav ->
             if (fav.isNotEmpty()) {
-                binding.msg?.visibility = View.INVISIBLE
-                val adapter = FavouriteRecyclerAdapter(requireContext(),
-                        fav as ArrayList<Locations>, this)
-                binding.recView.adapter = adapter
-                binding.recView.layoutManager = LinearLayoutManager(requireContext())
-                binding.recView.setHasFixedSize(true)
+                sharedViewModel.detail.observe(viewLifecycleOwner, {
+                    details.addAll(it)
+                    binding.msg?.visibility = View.INVISIBLE
+                    val adapter = FavouriteRecyclerAdapter(requireContext(),
+                            fav as ArrayList<Locations>, this, details)
+                    binding.recView.adapter = adapter
+                    binding.recView.layoutManager = LinearLayoutManager(requireContext())
+                    binding.recView.setHasFixedSize(true)
+                })
             } else {
                 binding.msg?.visibility = View.VISIBLE
                 binding.recView.visibility = View.INVISIBLE
@@ -53,15 +56,6 @@ class FragmentMyCity : Fragment() {
 
     fun removeCity(locations: Locations) {
         sharedViewModel.removeCity(requireContext(), locations)
-    }
-
-    fun getInfo(locations: Locations): SpecLoc? {
-        var data: SpecLoc? = null
-        sharedViewModel.getRecyclerInfo(locations.woeid)
-        sharedViewModel.getRecyclerData().observe(viewLifecycleOwner, {
-            data = it
-        })
-        return data
     }
 
 

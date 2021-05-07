@@ -42,13 +42,13 @@ class CityDetail : AppCompatActivity() {
 
         val search = intent.getSerializableExtra("extra") as Locations
         val lista = ArrayList<Locations>()
-        viewModel.getFavouriteList().observe(this, {
+        viewModel.favourites.observe(this, {
             Log.d("ListaCont", it.size.toString())
             lista.addAll(it)
         })
 
         viewModel.getLocData(search.woeid)
-        viewModel.getLocDetails().observe(this, { response ->
+        viewModel.locDetail.observe(this, { response ->
             val city = response.body()
             if (city != null) {
 
@@ -122,7 +122,7 @@ class CityDetail : AppCompatActivity() {
                 binding.weatherDetail.dailyns.recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                 binding.weatherDetail.dailyns.recView.setHasFixedSize(true)
 
-                viewModel.getDailyValue().observe(this, {
+                viewModel.daily.observe(this, {
                     val adapterDaily = it.body()?.let { it1 -> WeatherDailyRecyclerAdapter(this, it1.sortedBy { it.created }) }
                     binding.weatherDetail.dailyw.recView.adapter = adapterDaily
                     binding.weatherDetail.dailyw.recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
