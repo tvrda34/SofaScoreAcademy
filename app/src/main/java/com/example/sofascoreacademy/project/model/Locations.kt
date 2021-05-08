@@ -17,6 +17,16 @@ data class Locations(
         val latt_long: String
 ) : Serializable
 
+@Entity
+data class LocationDb(
+        val title: String,
+        val location_type: String,
+        @PrimaryKey
+        val woeid: Int,
+        val latt_long: String,
+        var position: Int
+) : Serializable
+
 data class LocLatt(
         val title: String,
         val location_type: String,

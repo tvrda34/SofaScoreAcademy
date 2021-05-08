@@ -108,4 +108,10 @@
     <string name="cityp">odaberi grad</string>
     <string name="languagep">odaberi jezik</string>
     <string name="gmt">GMT</string>
+    <string name="clearFavTitle">Obrisati listu favorita?</string>
+    <string name="clearFavText">Ako obrišeš listu ispraznit će se lista favorita.</string>
+    <string name="cancel">otkaži</string>
+    <string name="clear">briši</string>
+    <string name="clearRecTitle">Obrisati nedavna pretraživanja?</string>
+    <string name="clearRecText">Ako obrišeš listu ispraznit će se lista nedavnih pretraživanja.</string>
 </resources>

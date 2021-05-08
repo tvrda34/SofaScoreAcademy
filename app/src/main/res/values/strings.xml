@@ -108,4 +108,10 @@
     <string name="cityp">pick a city</string>
     <string name="languagep">pick a language</string>
     <string name="gmt">GMT</string>
+    <string name="clearFavTitle">Clear favourite search list?</string>
+    <string name="clearFavText">If you clear your favourite search list, your city list will be empty.</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">clear</string>
+    <string name="clearRecTitle">Clear recent search list?</string>
+    <string name="clearRecText">If you clear your recent search list, your recent list will be empty.</string>
 </resources>

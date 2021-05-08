@@ -16,7 +16,6 @@ import com.example.sofascoreacademy.project.adapter.WeatherDailyRecyclerAdapter
 import com.example.sofascoreacademy.project.adapter.WeatherRecyclerAdapter
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
-import com.google.android.material.appbar.CollapsingToolbarLayout
 import kotlin.math.roundToInt
 
 const val kmMlConverter = 1.609344
@@ -35,8 +34,8 @@ class CityDetail : AppCompatActivity() {
         val view = binding.root
         window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LOW_PROFILE
         setContentView(view)
-        setSupportActionBar(findViewById(R.id.toolbar))
-        findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
+        setSupportActionBar(findViewById(R.id.toolbar_city))
+        //findViewById<CollapsingToolbarLayout>(R.id.toolbar_layout).title = title
 
         viewModel.getFavourites(this)
 
@@ -62,6 +61,7 @@ class CityDetail : AppCompatActivity() {
 
                 //dobivene vrijednosti - base city info
                 binding.toolbarLayout.title = city.title
+                binding.toolbarCity.title = city.title
                 binding.weatherDetail.masterw.baseInfo.time.text = city.formattedTime().plus(" (" + city.timezone_name + ")")
                 binding.weatherDetail.masterw.baseInfo.date.text = city.consolidated_weather[0].formattedApplicableDate()
                 binding.weatherDetail.masterw.baseInfo.basicInfo.text = city.consolidated_weather[0].weather_state_name

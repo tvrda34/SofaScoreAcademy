@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_search"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:id="@+id/titler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:textAppearance="@style/Headline2DarkLeft"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/clearRecTitle" />
+
+    <TextView
+        android:id="@+id/textpopr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:textAppearance="@style/BodyDarkLeft"
+        app:layout_constraintTop_toBottomOf="@+id/titler"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/clearRecText" />
+
+
+    <android.widget.Button
+        android:id="@+id/btn_cancelr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:textAlignment="center"
+        android:textColor="@color/tint_secondary"
+        android:text="@string/cancel"
+        app:layout_constraintEnd_toStartOf="@+id/btn_clearr"
+        app:layout_constraintTop_toBottomOf="@+id/textpopr"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp" />
+
+    <android.widget.Button
+        android:id="@+id/btn_clearr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/btn_pop"
+        android:textAlignment="center"
+        android:textColor="@color/surface_1"
+        android:text="@string/clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textpopr"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

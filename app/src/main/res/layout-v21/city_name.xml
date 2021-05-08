@@ -36,6 +36,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_collapseMode="pin"
+                app:title="@string/san_francisco"
                 app:popupTheme="@style/Theme.SofaScoreAcademy.PopupOverlay">
 
 

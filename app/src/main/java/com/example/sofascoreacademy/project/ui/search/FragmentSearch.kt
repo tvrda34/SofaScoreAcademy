@@ -67,7 +67,7 @@ class FragmentSearch : Fragment() {
             }
         })
 
-        //layout izgled promjena
+        //layout promjena izgleda
         val constraintLayout: ConstraintLayout = binding.slay
         val constraintSet = ConstraintSet()
         constraintSet.clone(constraintLayout)

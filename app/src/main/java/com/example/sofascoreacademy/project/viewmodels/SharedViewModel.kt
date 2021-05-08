@@ -92,6 +92,7 @@ class SharedViewModel : ViewModel() {
         viewModelScope.launch {
             val db = WeatherDatabase.getDatabase(context)
             db?.weatherDao()?.deleteAllFromTableRecent()
+            getRecent(context)
         }
     }
 
@@ -99,6 +100,7 @@ class SharedViewModel : ViewModel() {
         viewModelScope.launch {
             val db = WeatherDatabase.getDatabase(context)
             db?.weatherDao()?.deleteAllFromTableLocations()
+            getFavourites(context)
         }
     }
 

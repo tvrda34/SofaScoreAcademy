@@ -1,5 +1,4 @@
-package com.example.androidakademija.helpers
-
+package com.example.sofascoreacademy.project.helper
 import android.content.Context
 import android.content.res.Configuration
 import android.preference.PreferenceManager

@@ -35,57 +35,61 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/langt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+    <LinearLayout
+        android:id="@+id/langch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar"
-        android:hint="@string/language"
-        app:hintTextColor="@color/tint_secondary"
-        app:helperTextEnabled="true"
-        app:helperText="@string/helper_text_lang">
+        android:layout_margin="16dp"
+        android:background="@drawable/spinner_backg"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <AutoCompleteTextView
-            android:id="@+id/lsel"
+        <TextView
+            android:id="@+id/langt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
-            android:backgroundTint="@color/surface_2"
-            android:text="@string/languagep"
-            tools:ignore="LabelFor" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/language"
+            android:textAppearance="@style/AssistiveTintSecondaryLeft"
+            android:textColor="@color/tint_secondary"
+            android:textSize="12sp" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/cityt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        <Spinner
+            android:id="@+id/splang"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/citych"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/langt"
-        android:hint="@string/city"
-        app:hintTextColor="@color/tint_secondary"
-        app:helperTextEnabled="true"
-        app:helperText="@string/helper_text_city">
+        android:layout_margin="16dp"
+        android:background="@drawable/spinner_backg"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/langch"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <AutoCompleteTextView
-            android:id="@+id/csel"
+        <TextView
+            android:id="@+id/cityt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
-            android:backgroundTint="@color/surface_2"
-            android:text="@string/cityp"
-            android:textColor="@color/black"
-            tools:ignore="LabelFor" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/city"
+            android:textAppearance="@style/AssistiveTintSecondaryLeft"
+            android:textColor="@color/tint_secondary"
+            android:textSize="12sp" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <Spinner
+            android:id="@+id/spcity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
 
     <include
         layout="@layout/radio_unit"
@@ -95,7 +99,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@id/cityt"
+        app:layout_constraintTop_toBottomOf="@id/citych"
         app:layout_constraintStart_toStartOf="parent" />
 
     <include
@@ -109,7 +113,7 @@
         app:layout_constraintTop_toBottomOf="@+id/rgroup"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/clearfav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -122,7 +126,7 @@
         android:textColor="@color/error"
         android:background="@drawable/button_transp" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/clearrec"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

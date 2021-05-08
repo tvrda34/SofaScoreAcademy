@@ -12,9 +12,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.androidakademija.helpers.LanguageHelper
 import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.project.database.WeatherDatabase
+import com.example.sofascoreacademy.project.helper.LanguageHelper
 import com.example.sofascoreacademy.project.model.BaseCity
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
