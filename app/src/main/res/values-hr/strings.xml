@@ -107,4 +107,5 @@
     <string name="language">Jezik</string>
     <string name="cityp">odaberi grad</string>
     <string name="languagep">odaberi jezik</string>
+    <string name="gmt">GMT</string>
 </resources>

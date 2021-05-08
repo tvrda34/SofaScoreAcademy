@@ -9,6 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.databinding.FragmentFavouriteBinding
 import com.example.sofascoreacademy.project.adapter.FavouriteRecyclerAdapter
 import com.example.sofascoreacademy.project.model.Locations
@@ -26,15 +27,18 @@ class FragmentMyCity : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFavouriteBinding.inflate(inflater, container, false)
+        sharedViewModel.getFavourites(requireContext())
 
         val details = ArrayList<Response<SpecLoc>>()
+        var adapter: FavouriteRecyclerAdapter? = null
+        var img = 0
 
         sharedViewModel.favourites.observe(viewLifecycleOwner, { fav ->
             if (fav.isNotEmpty()) {
                 sharedViewModel.detail.observe(viewLifecycleOwner, {
                     details.addAll(it)
                     binding.msg?.visibility = View.INVISIBLE
-                    val adapter = FavouriteRecyclerAdapter(requireContext(),
+                    adapter = FavouriteRecyclerAdapter(requireContext(),
                             fav as ArrayList<Locations>, this, details)
                     binding.recView.adapter = adapter
                     binding.recView.layoutManager = LinearLayoutManager(requireContext())
@@ -47,8 +51,19 @@ class FragmentMyCity : Fragment() {
         })
 
         binding.edit.setOnClickListener {
-            val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-            itemTouchHelper.attachToRecyclerView(binding.recView)
+            if (adapter != null) {
+                if (img == 0) {
+                    binding.edit.setBackgroundResource(R.drawable.ic_done)
+                    img = 1
+                } else {
+                    binding.edit.setBackgroundResource(R.drawable.ic_edit)
+                    img = 0
+                }
+                val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+                itemTouchHelper.attachToRecyclerView(binding.recView)
+                adapter!!.reorderSwitch = !adapter!!.reorderSwitch
+                adapter!!.notifyDataSetChanged()
+            }
         }
 
         return binding.root

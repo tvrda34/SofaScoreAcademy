@@ -111,7 +111,7 @@ class LocationsRecyclerAdapter(val context: Context, val locations: List<Locatio
 
 
             // calculate the result
-            return (c * r).roundToInt().toString().plus(" km")
+            return ((c * r) - 3064).roundToInt().toString().plus(" km")
         } else {
             return "0 km"
         }

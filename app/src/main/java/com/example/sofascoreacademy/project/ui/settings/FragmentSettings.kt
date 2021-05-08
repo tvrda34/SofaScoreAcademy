@@ -33,6 +33,8 @@ class FragmentSettings : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         _binding = SettingsBinding.inflate(inflater, container, false)
+        sharedViewModel.getFavourites(requireContext())
+        sharedViewModel.getLat(requireContext())
 
         val languageArray = requireContext().resources.getStringArray(R.array.available_languages)
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, languageArray)

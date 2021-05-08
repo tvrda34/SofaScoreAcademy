@@ -11,6 +11,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,6 +21,7 @@ import com.example.sofascoreacademy.project.adapter.LocationsRecyclerAdapter
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.Recent
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
+
 
 class FragmentSearch : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -30,6 +33,9 @@ class FragmentSearch : Fragment() {
             savedInstanceState: Bundle?
     ): View {
         FragmentSearchBinding.inflate(inflater, container, false).also { _binding = it }
+        sharedViewModel.getFavourites(requireContext())
+        sharedViewModel.getLat(requireContext())
+        sharedViewModel.getRecent(requireContext())
 
         val list = ArrayList<Locations>()
         sharedViewModel.favourites.observe(viewLifecycleOwner, { favs ->
@@ -61,12 +67,21 @@ class FragmentSearch : Fragment() {
             }
         })
 
-        //pokusao sam da ne ostane rupa na pcoetku ali ne radi - izvitoperi se sve
-        //binding.recView.layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.WRAP_CONTENT)
+        //layout izgled promjena
+        val constraintLayout: ConstraintLayout = binding.slay
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(constraintLayout)
+        binding.recView.visibility = View.INVISIBLE
+        constraintSet.connect(binding.textView.id, ConstraintSet.TOP, binding.toolbar.id, ConstraintSet.BOTTOM, 0)
+        constraintSet.applyTo(constraintLayout)
 
         sharedViewModel.cityList.observe(viewLifecycleOwner, { locations ->
             if (locations.isSuccessful && locations.body()?.isNotEmpty() == true) {
-                //binding.recView.layoutParams = ConstraintLayout.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT, 0)
+                //promjena izgleda layouta
+                binding.recView.visibility = View.VISIBLE
+                constraintSet.connect(binding.textView.id, ConstraintSet.TOP, binding.recView.id, ConstraintSet.BOTTOM, 0)
+                constraintSet.applyTo(constraintLayout)
+
                 val adapter = locations.body()?.let { LocationsRecyclerAdapter(requireContext(), it, this, list, cityCoord) }
                 binding.recView.adapter = adapter
                 binding.recView.layoutManager = LinearLayoutManager(requireContext())
@@ -74,13 +89,14 @@ class FragmentSearch : Fragment() {
             }
         })
 
-        sharedViewModel.getRecent(requireContext())
         sharedViewModel.recent.observe(viewLifecycleOwner, { locations ->
             if (locations.isNotEmpty()) {
-                val adapter = locations?.let { LocationsRecyclerAdapter(requireContext(), it, this, list, cityCoord) }
-                binding.recViewRecent.adapter = adapter
-                binding.recViewRecent.layoutManager = LinearLayoutManager(requireContext())
-                binding.recViewRecent.setHasFixedSize(true)
+                sharedViewModel.favourites.observe(viewLifecycleOwner, { favs ->
+                    val adapter = locations?.let { LocationsRecyclerAdapter(requireContext(), it, this, favs as ArrayList<Locations>, cityCoord) }
+                    binding.recViewRecent.adapter = adapter
+                    binding.recViewRecent.layoutManager = LinearLayoutManager(requireContext())
+                    binding.recViewRecent.setHasFixedSize(true)
+                })
             }
         })
 

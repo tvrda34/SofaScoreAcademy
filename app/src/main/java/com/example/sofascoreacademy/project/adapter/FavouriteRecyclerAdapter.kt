@@ -10,9 +10,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import coil.clear
 import coil.load
 import com.example.sofascoreacademy.R
-import com.example.sofascoreacademy.databinding.MycityFavBinding
+import com.example.sofascoreacademy.databinding.ReorderFavBinding
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.SpecLoc
 import com.example.sofascoreacademy.project.ui.citydetail.CityDetail
@@ -28,8 +29,10 @@ import kotlin.math.roundToInt
 class FavouriteRecyclerAdapter(val context: Context, val locations: ArrayList<Locations>, private val frag: FragmentMyCity, private val detail: List<Response<SpecLoc>>) :
         RecyclerView.Adapter<FavouriteRecyclerAdapter.FavouriteViewHolder>() {
 
+    var reorderSwitch: Boolean = false
+
     inner class FavouriteViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val binding = MycityFavBinding.bind(view)
+        val binding = ReorderFavBinding.bind(view)
 
         init {
             view.setOnClickListener {
@@ -44,7 +47,7 @@ class FavouriteRecyclerAdapter(val context: Context, val locations: ArrayList<Lo
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteViewHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.mycity_fav, parent, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.reorder_fav, parent, false)
         return FavouriteViewHolder(view)
     }
 
@@ -88,6 +91,13 @@ class FavouriteRecyclerAdapter(val context: Context, val locations: ArrayList<Lo
             else -> { // Note the block
                 holder.binding.weatherPic.load(R.drawable.ic_lc)
             }
+        }
+
+
+        if (reorderSwitch) {
+            holder.binding.move.load(R.drawable.ic_reorder)
+        } else {
+            holder.binding.move.clear()
         }
 
     }

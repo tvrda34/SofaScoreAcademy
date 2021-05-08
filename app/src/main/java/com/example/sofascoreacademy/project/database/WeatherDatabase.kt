@@ -53,6 +53,13 @@ abstract class WeatherDatabase : RoomDatabase() {
                 }
             }
 
+            /* val MIGRATION_4_5: Migration = object : Migration(4, 5) {
+                 override fun migrate(database: SupportSQLiteDatabase) {
+                     // Remove the table
+                     database.execSQL("ALTER TABLE Location ADD COLUMN position INTEGER NOT NULL;")
+                 }
+             }*/
+
             return Room.databaseBuilder(
                     context.applicationContext,
                     WeatherDatabase::class.java,

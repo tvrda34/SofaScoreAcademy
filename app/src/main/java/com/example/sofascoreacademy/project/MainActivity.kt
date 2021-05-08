@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
                       .setIcon(android.R.drawable.ic_dialog_alert).show()*//*
         }*/
 
-        viewModel.getFavourites(this)
         viewModel.getLat(this)
         viewModel.addBaseToDb(this, BaseCity("Zagreb", "45.807259,15.967600"))
     }
