@@ -10,16 +10,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.databinding.LocationItemBinding
+import com.example.sofascoreacademy.project.helper.ImageHelper
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.Recent
+import com.example.sofascoreacademy.project.model.SpecLoc
 import com.example.sofascoreacademy.project.ui.citydetail.CityDetail
 import com.example.sofascoreacademy.project.ui.search.FragmentSearch
+import retrofit2.Response
 import kotlin.math.*
 
-class LocationsRecyclerAdapter(val context: Context, val locations: List<Locations>, val frag: FragmentSearch, val fav: ArrayList<Locations>, val dist: List<String>)
-    : RecyclerView.Adapter<LocationsRecyclerAdapter.LocationViewHolder>() {
+class LocationsRecyclerAdapter(
+    val context: Context,
+    val locations: List<Locations>,
+    val frag: FragmentSearch,
+    val fav: ArrayList<Locations>,
+    val dist: List<String>,
+    val det: List<Response<SpecLoc>>
+) : RecyclerView.Adapter<LocationsRecyclerAdapter.LocationViewHolder>() {
 
     inner class LocationViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val binding = LocationItemBinding.bind(view)
@@ -27,7 +37,13 @@ class LocationsRecyclerAdapter(val context: Context, val locations: List<Locatio
         init {
             view.setOnClickListener {
                 frag.addRecent(
-                        Recent(locations[adapterPosition].title, locations[adapterPosition].location_type, locations[adapterPosition].woeid, locations[adapterPosition].latt_long))
+                    Recent(
+                        locations[adapterPosition].title,
+                        locations[adapterPosition].location_type,
+                        locations[adapterPosition].woeid,
+                        locations[adapterPosition].latt_long
+                    )
+                )
 
                 it.context.startActivity(
                         Intent(
@@ -49,6 +65,7 @@ class LocationsRecyclerAdapter(val context: Context, val locations: List<Locatio
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
         val location = locations[position]
+        val data = det[position]
 
         holder.binding.title.text = location.title
         holder.binding.coord.text = location.latt_long
@@ -78,6 +95,19 @@ class LocationsRecyclerAdapter(val context: Context, val locations: List<Locatio
                 frag.removeFromFavourites(location)
             }
         }
+
+        val imgHelper = data.body()?.consolidated_weather?.get(0)?.weather_state_name?.let {
+            ImageHelper(
+                it
+            )
+        }
+        val imgRes = imgHelper?.getImgResource()
+        if (imgRes != null) {
+            holder.binding.weatherPic.load(imgRes)
+        }
+        holder.binding.weatherPic.setBackgroundColor(0)
+        holder.binding.temp.text =
+            data.body()?.consolidated_weather?.get(0)?.the_temp?.roundToInt().toString().plus("°")
     }
 
     override fun getItemCount(): Int {
@@ -99,7 +129,7 @@ class LocationsRecyclerAdapter(val context: Context, val locations: List<Locatio
         Log.d("Dist-Latt1", Math.toRadians(coord[0].toDouble()).toString())
         Log.d("Dist-Latt2", Math.toRadians(dist[0].toDouble()).toString())
         val dlat: Double = lat2 - lat1
-        if (!(dlat == 0.0) && !(dlon == 0.0)) {
+        if (dlat != 0.0 && !(dlon == 0.0)) {
             val a = (sin(dlat / 2).pow(2.0)
                     + (cos(lat1) * cos(lat2)
                     * sin(dlon / 2).pow(2.0)))

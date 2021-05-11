@@ -20,7 +20,9 @@ import com.example.sofascoreacademy.databinding.FragmentSearchBinding
 import com.example.sofascoreacademy.project.adapter.LocationsRecyclerAdapter
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.Recent
+import com.example.sofascoreacademy.project.model.SpecLoc
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
+import retrofit2.Response
 
 
 class FragmentSearch : Fragment() {
@@ -40,6 +42,11 @@ class FragmentSearch : Fragment() {
         val list = ArrayList<Locations>()
         sharedViewModel.favourites.observe(viewLifecycleOwner, { favs ->
             list.addAll(favs)
+        })
+
+        val recDet = ArrayList<Response<SpecLoc>>()
+        sharedViewModel.recDetails.observe(viewLifecycleOwner, { rec ->
+            recDet.addAll(rec)
         })
 
         val cityCoord = ArrayList<String>()
@@ -79,20 +86,45 @@ class FragmentSearch : Fragment() {
             if (locations.isSuccessful && locations.body()?.isNotEmpty() == true) {
                 //promjena izgleda layouta
                 binding.recView.visibility = View.VISIBLE
-                constraintSet.connect(binding.textView.id, ConstraintSet.TOP, binding.recView.id, ConstraintSet.BOTTOM, 0)
+                constraintSet.connect(
+                    binding.textView.id,
+                    ConstraintSet.TOP,
+                    binding.recView.id,
+                    ConstraintSet.BOTTOM,
+                    0
+                )
                 constraintSet.applyTo(constraintLayout)
-
-                val adapter = locations.body()?.let { LocationsRecyclerAdapter(requireContext(), it, this, list, cityCoord) }
-                binding.recView.adapter = adapter
-                binding.recView.layoutManager = LinearLayoutManager(requireContext())
-                binding.recView.setHasFixedSize(true)
+                sharedViewModel.searchDetails.observe(viewLifecycleOwner, { details ->
+                    val adapter = locations.body()?.let {
+                        LocationsRecyclerAdapter(
+                            requireContext(),
+                            it,
+                            this,
+                            list,
+                            cityCoord,
+                            details
+                        )
+                    }
+                    binding.recView.adapter = adapter
+                    binding.recView.layoutManager = LinearLayoutManager(requireContext())
+                    binding.recView.setHasFixedSize(true)
+                })
             }
         })
 
         sharedViewModel.recent.observe(viewLifecycleOwner, { locations ->
             if (locations.isNotEmpty()) {
                 sharedViewModel.favourites.observe(viewLifecycleOwner, { favs ->
-                    val adapter = locations?.let { LocationsRecyclerAdapter(requireContext(), it, this, favs as ArrayList<Locations>, cityCoord) }
+                    val adapter = locations?.let {
+                        LocationsRecyclerAdapter(
+                            requireContext(),
+                            it,
+                            this,
+                            favs as ArrayList<Locations>,
+                            cityCoord,
+                            recDet
+                        )
+                    }
                     binding.recViewRecent.adapter = adapter
                     binding.recViewRecent.layoutManager = LinearLayoutManager(requireContext())
                     binding.recViewRecent.setHasFixedSize(true)

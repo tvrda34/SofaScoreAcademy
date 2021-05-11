@@ -22,10 +22,15 @@ class SharedViewModel : ViewModel() {
     val daily = MutableLiveData<Response<List<City>>>()
     val detail = MutableLiveData<List<Response<SpecLoc>>>()
     val lat = MutableLiveData<String>()
+    val searchDetails = MutableLiveData<List<Response<SpecLoc>>>()
+    val recDetails = MutableLiveData<List<Response<SpecLoc>>>()
 
     fun getCity(search: String) {
         viewModelScope.launch {
             val response: Response<List<Locations>> = Repository().getLocations(search)
+            val detailResponse =
+                response.body()?.map { detail -> async { Repository().getSpecLoc(detail.woeid) } }
+            searchDetails.value = detailResponse?.awaitAll()
             cityList.value = response
         }
     }
@@ -81,7 +86,11 @@ class SharedViewModel : ViewModel() {
     fun getRecent(context: Context) {
         viewModelScope.launch {
             val db = WeatherDatabase.getDatabase(context)
-            recent.value = db?.weatherDao()?.getRecent()
+            val response = db?.weatherDao()?.getRecent()
+            val detailResponse =
+                response?.map { detail -> async { Repository().getSpecLoc(detail.woeid) } }
+            recDetails.value = detailResponse?.awaitAll()
+            recent.value = response!!
         }
     }
 
@@ -135,6 +144,5 @@ class SharedViewModel : ViewModel() {
             getLat(context)
         }
     }
-
 
 }

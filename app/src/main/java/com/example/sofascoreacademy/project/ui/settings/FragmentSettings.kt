@@ -56,11 +56,6 @@ class FragmentSettings : Fragment() {
             }
         })
 
-        val adapter2 = ArrayAdapter(requireContext(), R.layout.list_item, cityArray)
-        binding.spcity?.setAdapter(adapter2)
-
-        //poboljsat
-        binding.spcity?.setSelection(0)
 
         binding.splang?.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener {
@@ -87,26 +82,35 @@ class FragmentSettings : Fragment() {
                     }
                 }
 
-        binding.spcity?.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener {
-                    override fun onItemSelected(
-                            parent: AdapterView<*>,
-                            view: View,
-                            position: Int,
-                            id: Long
-                    ) {
-                        if (firstSelection) {
-                            firstSelection = false
-                        } else {
-                            val item = parent.getItemAtPosition(position) as String
-                            //u bazu upis novog grada i koordinata
-                        }
-                    }
+        //TODO ADD CITY CHECK FOR DISTANCE OR ADD MOBILE LOCATION FOR DISTANCE
+        /*
+        val adapter2 = ArrayAdapter(requireContext(), R.layout.list_item, cityArray)
+            binding.spcity?.setAdapter(adapter2)
 
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                        // nothing happens
-                    }
-                }
+            //poboljsat
+            binding.spcity?.setSelection(0)
+
+
+        binding.spcity?.onItemSelectedListener =
+                    object : AdapterView.OnItemSelectedListener {
+                        override fun onItemSelected(
+                                parent: AdapterView<*>,
+                                view: View,
+                                position: Int,
+                                id: Long
+                        ) {
+                            if (firstSelection) {
+                                firstSelection = false
+                            } else {
+                                val item = parent.getItemAtPosition(position) as String
+                                //u bazu upis novog grada i koordinata
+                            }
+                        }
+
+                        override fun onNothingSelected(parent: AdapterView<*>?) {
+                            // nothing happens
+                        }
+                    }*/
 
 
         binding.aboutc.more.setOnClickListener {

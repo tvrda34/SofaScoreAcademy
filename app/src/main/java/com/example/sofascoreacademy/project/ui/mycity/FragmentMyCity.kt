@@ -1,6 +1,5 @@
 package com.example.sofascoreacademy.project.ui.mycity
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import com.example.sofascoreacademy.project.adapter.FavouriteRecyclerAdapter
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.SpecLoc
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
-import com.google.android.material.snackbar.Snackbar
 import retrofit2.Response
 
 class FragmentMyCity : Fragment() {
@@ -65,24 +63,12 @@ class FragmentMyCity : Fragment() {
                 itemTouchHelper.attachToRecyclerView(binding.recView)
                 adapter!!.reorderSwitch = !adapter!!.reorderSwitch
                 adapter!!.notifyDataSetChanged()
-            } else {
-                showCitiesSnackbar()
             }
         }
 
         return binding.root
     }
 
-    @SuppressLint("ResourceAsColor")
-    private fun showCitiesSnackbar() {
-        view?.let {
-            Snackbar.make(it, R.string.no_favourites, Snackbar.LENGTH_INDEFINITE)
-                    .setBackgroundTint(R.color.surface_1)
-                    .setActionTextColor(R.color.black)
-                    .setAction("X") { System.out.println("bye") }
-                    .show()
-        }
-    }
 
     fun removeCity(locations: Locations) {
         sharedViewModel.removeCity(requireContext(), locations)
