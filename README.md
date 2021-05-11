@@ -57,7 +57,7 @@ Hello World projekt
 ## WeatherApp
 
 ### 5.DZ
- -Implementirati networking
+  -Implementirati networking
     -Dodati retrofit i gson
     -Kreirati sve modele za traženi api
     -Implementirati sve endpointove
