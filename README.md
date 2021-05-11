@@ -2,7 +2,7 @@
 Ovaj repozitorij korišten je za rješavanje i objavljivanje rješenja zadaća sa SofaScore android akademije 2021.
 Kao finalni rezultat zadaća uz predavanje nastala je jednostavna aplikacija vremenske prognoze. U aplikaciji su pokrivena sva područja akademije
 od Networkinga (Retrofit), baze podataka (Room), Courutina...
-U budučnosti ću pokušati još više poboljšati ovu aplikaciju i dodati/popraviti određee dijelove.
+U budućnosti ću pokušati još više poboljšati ovu aplikaciju i dodati/popraviti određene dijelove.
 
 ### 1.DZ
 Hello World projekt
