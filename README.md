@@ -57,13 +57,13 @@ Hello World projekt
 ## WeatherApp
 
 ### 5.DZ
-  -Implementirati networking
-    -Dodati retrofit i gson
-    -Kreirati sve modele za traženi api
-    -Implementirati sve endpointove
-  -Koristiti Kotlin Coroutines za network pozive
-  - Dodati podršku hvatanje error-a
-  - Implementirati dizajn bottom navigation layouta
+  - Implementirati networking
+    - Dodati retrofit i gson
+    - Kreirati sve modele za traženi api
+    - Implementirati sve endpointove
+  - Koristiti Kotlin Coroutines za network pozive
+    - Dodati podršku hvatanje error-a
+    - Implementirati dizajn bottom navigation layouta
   - Implementirati dizajn i funkcionalnost Search Fragmenta
     - Location Search endpoint
   - Implementirati dizajn i funkcionalnost City Activityja
