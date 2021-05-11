@@ -7,15 +7,15 @@
 
     <fragment
         android:id="@+id/navigation_poziv"
-        android:name="com.example.sofascoreacademy.project.ui.call.FragmentPoziv"
-        android:label="@string/title_poziv"
-        tools:layout="@layout/fragment_poziv" />
+        android:name="com.example.sofascoreacademy.project.ui.search.FragmentSearch"
+        android:label="@string/title_search"
+        tools:layout="@layout/fragment_search" />
 
     <fragment
         android:id="@+id/navigation_repka"
-        android:name="com.example.sofascoreacademy.project.ui.team.FragmentRepka"
-        android:label="@string/title_repka"
-        tools:layout="@layout/fragment_repka" />
+        android:name="com.example.sofascoreacademy.project.ui.mycity.FragmentMyCity"
+        android:label="@string/title_my_cities"
+        tools:layout="@layout/fragment_favourite" />
 
     <fragment
         android:id="@+id/navigation_settings"

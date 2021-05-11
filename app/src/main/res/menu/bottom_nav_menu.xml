@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item
         android:id="@+id/navigation_poziv"
-        android:icon="@drawable/ic_poziv_24"
-        android:title="@string/title_poziv" />
+        android:icon="@drawable/ic_search"
+        android:title="@string/title_search" />
 
     <item
         android:id="@+id/navigation_repka"
-        android:icon="@drawable/ic_repka_24"
-        android:title="@string/title_repka" />
+        android:icon="@drawable/ic_star_0"
+        android:title="@string/title_my_cities" />
 
     <item
         android:id="@+id/navigation_settings"
-        android:icon="@drawable/ic_baseline_settings_24"
+        android:icon="@drawable/ic_settings"
         android:title="@string/title_settings" />
 </menu>

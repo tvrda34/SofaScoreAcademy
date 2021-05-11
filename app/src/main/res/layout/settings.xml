@@ -6,42 +6,123 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".project.ui.settings.FragmentSettings">
 
-    <TextView
-        android:id="@+id/titleLang"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="48dp"
-        android:text="@string/lang_title"
-        android:textAlignment="center"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        android:background="@color/tint_primary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:titleTextColor="#798fa4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <!--button view for hindi language-->
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="176dp"
+            android:layout_height="wrap_content"
+            android:text="@string/title_settings"
+            android:textColor="@color/surface_0"
+            android:textSize="20sp"
+            android:textAppearance="@style/Headline2Surface1Left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp" />
 
-    <!--button view for english language-->
+    </androidx.appcompat.widget.Toolbar>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/langt"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:hint="@string/city"
+        app:helperTextEnabled="true"
+        app:helperText="@string/helper_text_lang">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:text="@string/item" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/cityt"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/langt"
+        android:hint="@string/city"
+        app:helperTextEnabled="true"
+        app:helperText="@string/helper_text_city">
+
+        <AutoCompleteTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:text="@string/item" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <include
+        layout="@layout/radio_unit"
+        android:id="@+id/rgroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/cityt"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <include
+        layout="@layout/about_container"
+        android:id="@+id/aboutc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/rgroup"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/btnCro"
-        android:layout_width="wrap_content"
+        android:id="@+id/clearfav"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginTop="12dp"
-        android:text="@string/cro"
-        android:textColor="#ffffff"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/titleLang" />
+        app:layout_constraintTop_toBottomOf="@+id/aboutc"
+        android:text="@string/clear_fav"
+        android:textColor="@color/error"
+        android:background="@drawable/button_transp" />
 
     <Button
-        android:id="@+id/btnEng"
-        android:layout_margin="16dp"
-        android:textColor="#ffffff"
-        android:layout_width="wrap_content"
+        android:id="@+id/clearrec"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/eng"
-        app:layout_constraintTop_toBottomOf="@id/btnCro"
+        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/clearfav"
+        android:text="@string/clear_recent"
+        android:textColor="@color/error"
+        android:background="@drawable/button_transp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

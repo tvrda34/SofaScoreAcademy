@@ -1,42 +1,140 @@
 package com.example.sofascoreacademy.project.viewmodels
 
+import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.sofascoreacademy.project.model.Footballer
-import com.example.sofascoreacademy.project.model.Position
-import com.example.sofascoreacademy.project.model.TeamRole
+import androidx.lifecycle.viewModelScope
+import com.example.sofascoreacademy.project.database.WeatherDatabase
+import com.example.sofascoreacademy.project.model.*
+import com.example.sofascoreacademy.project.networking.repository.Repository
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
 
 class SharedViewModel : ViewModel() {
-    private val liveList = MutableLiveData<ArrayList<Footballer>>()
+    val cityList = MutableLiveData<Response<List<Locations>>>()
+    val locDetail = MutableLiveData<Response<SpecLoc>>()
+    val favourites = MutableLiveData<List<Locations>>()
+    val recent = MutableLiveData<List<Locations>>()
+    val daily = MutableLiveData<Response<List<City>>>()
+    val detail = MutableLiveData<List<Response<SpecLoc>>>()
+    val lat = MutableLiveData<String>()
 
-    init {
-        liveList.value = arrayListOf(
-                Footballer(
-                        "Luka", "Modrić", 35, Position.Midfielder, "Real Madrid", TeamRole.Legend, 133,
-                        "https://hns-cff.hr/files/images/_resized/0000033475_660_375_cut.jpg"
-                ),
-                Footballer(
-                        "Kristijan", "Lovrić", 25, Position.Forward, "HNK Gorica", TeamRole.RisingStar, 0,
-                        "https://gorica.info/wp-content/uploads/2020/09/lovric-e1600701269856.jpg"
-                ),
-                Footballer(
-                        "Franko", "Andrijašević", 29, Position.Midfielder, "HNK Rijeka", TeamRole.Maestro, 2,
-                        "https://hns-cff.hr/files/images/_resized/0000020498_660_375_cut.jpg"
-                ),
-                Footballer(
-                        "Mateo", "Kovačić", 26, Position.Midfielder, "Chelsea F.C.", TeamRole.Superstar, 61,
-                        "https://hns-cff.hr/files/images/_resized/0000032740_660_375_cut.jpg"
-                )
-        )
+    fun getCity(search: String) {
+        viewModelScope.launch {
+            val response: Response<List<Locations>> = Repository().getLocations(search)
+            cityList.value = response
+        }
     }
 
-    fun addToList(footballer: Footballer) {
-        liveList.value?.add(footballer)
+    fun getLocData(woeid: Int) {
+        viewModelScope.launch {
+            val response: Response<SpecLoc> = Repository().getSpecLoc(woeid)
+            response.body()?.parent?.let { Log.d("coru", it.title) }
+            locDetail.value = response
+        }
     }
 
-    fun getList(): MutableLiveData<ArrayList<Footballer>> {
-        return liveList
+
+
+    //favourites
+    fun addCityToDb(context: Context, location: Locations) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            db?.weatherDao()?.addFavouriteCity(location)
+            getFavourites(context)
+        }
     }
+
+    fun getFavourites(context: Context) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            val response = db?.weatherDao()?.getAll()
+            val detailResponse = response?.map { detail -> async { Repository().getSpecLoc(detail.woeid) } }
+            detail.value = detailResponse?.awaitAll()
+            favourites.value = response!!
+        }
+    }
+
+
+    //remove city from db
+    fun removeCity(context: Context, location: Locations) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            db?.weatherDao()?.delete(location)
+        }
+    }
+
+
+    //recent
+    fun addRecentToDb(context: Context, location: Recent) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            db?.weatherDao()?.addRecent(location)
+            getRecent(context)
+        }
+    }
+
+    fun getRecent(context: Context) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            recent.value = db?.weatherDao()?.getRecent()
+        }
+    }
+
+
+    //delete all
+
+    fun deleteAllRecent(context: Context) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            db?.weatherDao()?.deleteAllFromTableRecent()
+            getRecent(context)
+        }
+    }
+
+    fun deleteAllFavourite(context: Context) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            db?.weatherDao()?.deleteAllFromTableLocations()
+            getFavourites(context)
+        }
+    }
+
+    //daily detail
+    fun getDaily(id: String, date: String) {
+        viewModelScope.launch {
+            val response = async { Repository().getDailyDetail(id, date) }
+            daily.value = response.await()
+        }
+    }
+
+    //detalji za listu lokacija
+    fun getDetailLoc(location: List<Locations>) {
+        viewModelScope.launch {
+            val detailResponse = location.map { detail -> async { Repository().getSpecLoc(detail.woeid) } }
+            detail.value = detailResponse.awaitAll()
+        }
+    }
+
+    //distance
+    fun getLat(context: Context) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            lat.value = db?.weatherDao()?.getBaseCity()
+        }
+    }
+
+    fun addBaseToDb(context: Context, baseCity: BaseCity) {
+        viewModelScope.launch {
+            val db = WeatherDatabase.getDatabase(context)
+            db?.weatherDao()?.addBaseCity(baseCity)
+            getLat(context)
+        }
+    }
+
 
 }

@@ -3,6 +3,8 @@
     package="com.example.sofascoreacademy">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,7 +15,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SofaScoreAcademy">
         <activity
-            android:name=".project.ui.playerdetail.PlayerDetail"
+            android:name=".project.ui.About"
+            android:parentActivityName=".project.MainActivity" />
+        <activity
+            android:name=".project.ui.citydetail.CityDetail"
             android:label="@string/title_activity_player_detail"
             android:parentActivityName=".project.MainActivity"
             android:theme="@style/Theme.SofaScoreAcademy.NoActionBar" />
