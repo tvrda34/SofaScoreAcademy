@@ -53,3 +53,36 @@ Hello World projekt
   - Dodati CollapsibleToolbarActivity za prikaz specifičnog objekta na klik u recycleru
     - U njemu napraviti detaljan pregled objekta i svih njegovih parametara
   - Dodati Toast i Snackbar u neki dio flowa
+
+## WeatherApp
+
+### 5.DZ
+ -Implementirati networking
+    -Dodati retrofit i gson
+    -Kreirati sve modele za traženi api
+    -Implementirati sve endpointove
+  -Koristiti Kotlin Coroutines za network pozive
+  - Dodati podršku hvatanje error-a
+  - Implementirati dizajn bottom navigation layouta
+  - Implementirati dizajn i funkcionalnost Search Fragmenta
+    - Location Search endpoint
+  - Implementirati dizajn i funkcionalnost City Activityja
+    - Location endpoint
+
+### 6.DZ
+  - Implementirati Room bazu podataka i koristiti ju za spremanje
+    - Pretraga gradova
+    - Favorita
+  - Kreirati repozitorij koji upravlja spremanjem podataka 
+      dohvaćenih s endpointa u bazu
+  - Implementirati dizajn i funkcionalnost My Cities fragmenta
+  - Mogućnost uklanjanja i reorder-anja gradova
+
+### 7.DZ
+  - Dovršiti Weather app
+    - popuniti rupe iz prethodne dvije zadaće
+    - ispeglati dizajn
+    - implementirati Settings fragment
+  - Opcionalno
+    - dodati GoogleMaps API
+    - kreirati vlastiti widget
