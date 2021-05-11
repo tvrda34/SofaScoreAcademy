@@ -14,6 +14,7 @@ import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.databinding.CityNameBinding
 import com.example.sofascoreacademy.project.adapter.WeatherDailyRecyclerAdapter
 import com.example.sofascoreacademy.project.adapter.WeatherRecyclerAdapter
+import com.example.sofascoreacademy.project.helper.ImageHelper
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.viewmodels.SharedViewModel
 import kotlin.math.roundToInt
@@ -94,6 +95,10 @@ class CityDetail : AppCompatActivity() {
                     }
                 }
 
+                val imgHelper = ImageHelper(city.consolidated_weather.get(0).weather_state_name)
+                val imgRes = imgHelper.getImgResource()
+                binding.weatherDetail.masterw.baseInfo.weatherPic.load(imgRes)
+
                 //zvijezda
                 Log.d("ListaCont", lista.contains(search).toString())
                 Log.d("ListaCont", lista.size.toString())
@@ -123,7 +128,13 @@ class CityDetail : AppCompatActivity() {
                 binding.weatherDetail.dailyns.recView.setHasFixedSize(true)
 
                 viewModel.daily.observe(this, {
-                    val adapterDaily = it.body()?.let { it1 -> WeatherDailyRecyclerAdapter(this, it1.sortedBy { it.created }) }
+                    val adapterDaily = it.body()?.subList(0, 10).let { it1 ->
+                        it1?.let { it2 ->
+                            WeatherDailyRecyclerAdapter(
+                                this,
+                                it2.sortedBy { it.created })
+                        }
+                    }
                     binding.weatherDetail.dailyw.recView.adapter = adapterDaily
                     binding.weatherDetail.dailyw.recView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
                     binding.weatherDetail.dailyw.recView.setHasFixedSize(true)

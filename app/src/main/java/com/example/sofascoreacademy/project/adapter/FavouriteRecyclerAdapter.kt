@@ -14,6 +14,7 @@ import coil.clear
 import coil.load
 import com.example.sofascoreacademy.R
 import com.example.sofascoreacademy.databinding.ReorderFavBinding
+import com.example.sofascoreacademy.project.helper.ImageHelper
 import com.example.sofascoreacademy.project.model.Locations
 import com.example.sofascoreacademy.project.model.SpecLoc
 import com.example.sofascoreacademy.project.ui.citydetail.CityDetail
@@ -75,22 +76,19 @@ class FavouriteRecyclerAdapter(val context: Context, val locations: ArrayList<Lo
 
         holder.binding.time.text = data.body()?.formattedTime()
         holder.binding.tzone.text = context.getString(R.string.gmt).plus(offset.toString())
-        holder.binding.temp.text = data.body()?.consolidated_weather?.get(0)?.the_temp?.roundToInt().toString()
+        holder.binding.temp.text =
+            data.body()?.consolidated_weather?.get(0)?.the_temp?.roundToInt().toString().plus("°")
 
         holder.binding.weatherPic.setBackgroundColor(0)
 
-        when (data.body()?.consolidated_weather?.get(0)?.weather_state_name) {
-            "Clear" -> holder.binding.weatherPic.load(R.drawable.ic_c)
-            "Heavy Cloud" -> holder.binding.weatherPic.load(R.drawable.ic_hc)
-            "Sleet" -> holder.binding.weatherPic.load(R.drawable.ic_sl)
-            "Snow" -> holder.binding.weatherPic.load(R.drawable.ic_sn)
-            "Light Rain" -> holder.binding.weatherPic.load(R.drawable.ic_lr)
-            "Heavy Rain" -> holder.binding.weatherPic.load(R.drawable.ic_hr)
-            "Thunderstorm" -> holder.binding.weatherPic.load(R.drawable.ic_t)
-            "Showers" -> holder.binding.weatherPic.load(R.drawable.ic_s)
-            else -> { // Note the block
-                holder.binding.weatherPic.load(R.drawable.ic_lc)
-            }
+        val imgHelper = data.body()?.consolidated_weather?.get(0)?.weather_state_name?.let {
+            ImageHelper(
+                it
+            )
+        }
+        val imgRes = imgHelper?.getImgResource()
+        if (imgRes != null) {
+            holder.binding.weatherPic.load(imgRes)
         }
 
 
